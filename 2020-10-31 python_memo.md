@@ -445,7 +445,7 @@ if not os.path.exists(os.path.dirname(f_path_copy)):#フォルダが無ければ
 
 shutil.rmtree("diff_env")#フォルダの削除
 
-os.mkdir("diff_env")#フォルダの作成
+os.mkdir("diff_env", exist_ok=True))#フォルダの作成 diff_enbがあってもエラーにならない
 ```
 
 - ファイルとフォルダのコピー
