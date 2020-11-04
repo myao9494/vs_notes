@@ -1,6 +1,7 @@
 ---
 tags:
   - チートシート
+  - python
 ---
 
 # pythonの忘備録
@@ -44,6 +45,13 @@ pip freeze
 import os
 from pathlib import Path
 os.startfile(Path.cwd())#現在のフォルダを開く
+```
+
+## クリップボード（文字列）　clipboard
+
+```clip.py
+tex = pyperclip.paste() #クリップボードから取り出す
+pyperclip.copy(tex) #クリップボードに入れる
 ```
 
 ## クリップボードから画像を取得
