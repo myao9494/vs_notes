@@ -4,9 +4,77 @@ tags:
   - pandas
 ---
 
-# 機械設計業務（構造系）の技術者+金融の pandas チートシートです
+# pandas チートシートです
 
-## 追加でインストール
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [pandas チートシートです](#pandas-チートシートです)
+  - [ライブラリのインストール](#ライブラリのインストール)
+  - [設定関係](#設定関係)
+    - [テーブルの表示設定](#テーブルの表示設定)
+    - [pandas table を綺麗に表示](#pandas-table-を綺麗に表示)
+  - [統計、データフレームのサマリ](#統計データフレームのサマリ)
+    - [サマリを表示](#サマリを表示)
+    - [最頻を取得（多数決で決めたい場合に使った）](#最頻を取得多数決で決めたい場合に使った)
+  - [サンプルの作成](#サンプルの作成)
+    - [test データを作る](#test-データを作る)
+    - [時系列のサンプル](#時系列のサンプル)
+  - [よく使うグラフ](#よく使うグラフ)
+    - [散布図](#散布図)
+    - [動くグラフ](#動くグラフ)
+    - [二軸のグラフ](#二軸のグラフ)
+  - [既存の列を使って処理して、新しい列を作成する](#既存の列を使って処理して新しい列を作成する)
+    - [同一行内の計算](#同一行内の計算)
+    - [累積和 cumsum](#累積和-cumsum)
+    - [差分 diff](#差分-diff)
+    - [最大値 max](#最大値-max)
+    - [1 行ずらした列を挿入](#1-行ずらした列を挿入)
+    - [関数を使用する](#関数を使用する)
+  - [前処理](#前処理)
+    - [数値以外の文字列を含む場合の処理](#数値以外の文字列を含む場合の処理)
+    - [欠損値 nan の扱い](#欠損値-nan-の扱い)
+    - [inf 弾く](#inf-弾く)
+    - [文字列の置換](#文字列の置換)
+    - [重複の確認と処理](#重複の確認と処理)
+  - [列 columns 関係](#列-columns-関係)
+    - [列 volume の名前を Volume に変更　 inplace=True で上書き](#列-volume-の名前を-volume-に変更-inplacetrue-で上書き)
+    - [列番号を列名から取得する](#列番号を列名から取得する)
+    - [条件を付けて行の削除](#条件を付けて行の削除)
+    - [列の削除](#列の削除)
+    - [列の並べ替え](#列の並べ替え)
+    - [列の順序を反転](#列の順序を反転)
+    - [index の指定](#index-の指定)
+  - [型](#型)
+    - [型を確認](#型を確認)
+    - [型変更](#型変更)
+  - [データ抽出](#データ抽出)
+    - [条件を指定して抽出](#条件を指定して抽出)
+    - [テーブル間の差分(diff)でデータを抽出](#テーブル間の差分diffでデータを抽出)
+  - [行関係](#行関係)
+    - [上下反転(逆順)](#上下反転逆順)
+  - [セル](#セル)
+    - [セルの選択](#セルの選択)
+  - [書き込み](#書き込み)
+  - [pandas 読み込み](#pandas-読み込み)
+    - [csv](#csv)
+    - [時系列データ](#時系列データ)
+    - [codec error 読み込み時に codec のエラーが出る場合](#codec-error-読み込み時に-codec-のエラーが出る場合)
+    - [数値で読み込み（タイプを指定）](#数値で読み込みタイプを指定)
+    - [文字列で読み込み（タイプを指定）](#文字列で読み込みタイプを指定)
+    - [web から読み込み](#web-から読み込み)
+  - [文字列 すべてのセルの文字数を 8 個にする](#文字列-すべてのセルの文字数を-8-個にする)
+  - [時間 timestamp](#時間-timestamp)
+  - [sqlite](#sqlite)
+    - [読み書き共通](#読み書き共通)
+    - [書き込み](#書き込み-1)
+    - [読み込み](#読み込み)
+  - [イタレーション（おすすめしない）](#イタレーションおすすめしない)
+
+<!-- /code_chunk_output -->
+
+## ライブラリのインストール
 
 - dataframe をマークダウン形式の表で出力する
 
@@ -21,9 +89,40 @@ writer.from_dataframe(df)
 writer.write_table()
 ```
 
+## 設定関係
+
+### テーブルの表示設定
+
+```sette.py
+pd.options.display.max_columns = None
+pd.options.display.max_rows = 100
+```
+
+### pandas table を綺麗に表示
+
+```table.py
+from plotly.offline import init_notebook_mode, iplot
+import plotly.figure_factory as ff
+iplot(ff.create_table(df))
+```
+
+## 統計、データフレームのサマリ
+
+### サマリを表示
+
+```summary.py
+df_t.describe()
+```
+
+### 最頻を取得（多数決で決めたい場合に使った）
+
+```saihin.py
+df_temp.mode().iloc[[0]]
+```
+
 ## サンプルの作成
 
-- test データを作る
+### test データを作る
 
 ```test_data.py
 import pandas as pd
@@ -44,7 +143,7 @@ df = pd.DataFrame({"対象列1":[1,2,3,4,5],
 |        4 |        4 |
 |        5 |        5 |
 
-- 時系列のサンプル
+### 時系列のサンプル
 
 ```timeseries.py
 import datetime
@@ -65,52 +164,9 @@ df.columns=["time", "open","high","low","close"]
 df.to_csv("test.csv", index=False)
 ```
 
-## サマリを表示
-
-```summary.py
-df_t.describe()
-```
-
-## 最頻を取得（多数決で決めたい場合に使った）
-
-```saihin.py
-df_temp.mode().iloc[[0]]
-```
-
-## テーブルの表示設定
-
-```sette.py
-pd.options.display.max_columns = None
-pd.options.display.max_rows = 100
-```
-
-## pandas table を綺麗に表示
-
-```table.py
-from plotly.offline import init_notebook_mode, iplot
-import plotly.figure_factory as ff
-iplot(ff.create_table(df))
-```
-
-## テーブル間の diff,差分
-
-データを変更した際に、変更箇所のみを抽出したい時に使う  
-【use case】:レッドマインのチケットを csv で纏めて変更した際に、サーバへ反映するチケット id を抽出する
-
-```diff.py
-import pandas as pd
-df = pd.DataFrame([["リンゴ",1],["オレンジ",2],["いちご",3],["レモン",4],["マンゴー",5]],columns=["id","数量"])
-df_edit = df.copy()
-df_edit.loc[df_edit['id']=="レモン", '数量']=15
-df_diff = pd.concat([df,df_edit])
-df_diff = df_diff.drop_duplicates(keep=False)
-# keep="last"でdf_edit側の値を残す
-df_diff.drop_duplicates(subset="id",keep="last")
-```
-
 ## よく使うグラフ
 
-- 散布図
+### 散布図
 
 ```graph_1.py
 '''marker   https://matplotlib.org/api/markers_api.html
@@ -146,7 +202,7 @@ ax.set_ylabel('X [RAD]')# Y軸のラベルを設定
 plt.show()# グラフ表示
 ```
 
-- 動くグラフ
+### 動くグラフ
 
 ```g.py
 %matplotlib inline
@@ -174,7 +230,7 @@ df.iplot(fig)
 
 ```
 
-- 二軸のグラフ
+### 二軸のグラフ
 
 \$を使うと、latex が使える
 
@@ -231,28 +287,12 @@ ax2.set_yticks(np.linspace(ax2.get_yticks()[0], ax2.get_yticks()[-1], len(ax1.ge
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/274127/64988b65-362e-43b4-9020-f90b5475453e.png)
 
-## 数値以外の文字列を含む場合の処理
-
-参考：[pandas.DataFrame で数値以外の要素の抽出](https://qiita.com/kusmoto/items/058abc5b97ebfe77cf01)
-
-```fillter_str.py
-# 数値ではない型の要素の抽出
-pic = df[['price']][df['price'].apply(lambda s:pd.to_numeric(s, errors='coerce')).isnull()]
-# ',' の削除，'/' が含まれる要素を欠損値で置換
-change_data = pic['price'].str.replace(',','').mask(pic['price'].str.contains('/'), np.nan)
-# 元データのコピーを作成し，該当箇所を置換
-df_c = df.copy()
-df.loc[pic.index,'price'] = change_data
-#'price' 列の数値を数値型に変換し，欠損値を含む行を削除
-df_c['price'] = pd.to_numeric(df_c['price'], errors = 'ignore')
-df_out  = df_c.dropna()
-```
-
 ## 既存の列を使って処理して、新しい列を作成する
 
-- 同一行内の計算
-  dataseries にして計算すれば、エクセルと同じイメージで計算できる  
-  ずらしたい場合は、ずらした dataseries を作成して計算すればよい
+### 同一行内の計算
+
+dataseries にして計算すれば、エクセルと同じイメージで計算できる  
+ ずらしたい場合は、ずらした dataseries を作成して計算すればよい
 
 ```cal.py
 df["計算"] = df["対象列1"] + df["対象列2"]
@@ -266,8 +306,9 @@ df["計算"] = df["対象列1"] + df["対象列2"]
 |        4 |        4 |    8 |
 |        5 |        5 |   10 |
 
-- 累積和 cumsum  
-  イメージ：excel で積分。材料力学の梁の計算で、荷重から SFD を求める際など
+### 累積和 cumsum
+
+イメージ：excel で積分。材料力学の梁の計算で、荷重から SFD を求める際など
 
 ```cumsum.py
 df["累積和"] = df["対象列"].cumsum()
@@ -281,9 +322,10 @@ df["累積和"] = df["対象列"].cumsum()
 |      4 |     10 |
 |      5 |     15 |
 
-- 差分 diff  
-  イメージ：excel で微分。材料力学の梁の計算で、SFD から荷重を求める際など  
-  オプションで範囲を指定することができる
+### 差分 diff
+
+イメージ：excel で微分。材料力学の梁の計算で、SFD から荷重を求める際など  
+ オプションで範囲を指定することができる
 
 ```diff.py
 df["差分"] = df["対象列"].diff()
@@ -297,7 +339,7 @@ df["差分"] = df["対象列"].diff()
 |      4 |    1 |
 |      5 |    1 |
 
-- 最大値 max
+### 最大値 max
 
 ```max.py
 df["max"] = df.max(axis=1)
@@ -311,7 +353,7 @@ df["max"] = df.max(axis=1)
 |        4 |        8 |   8 |
 |       10 |        5 |  10 |
 
-- 1 行ずらした列を挿入
+### 1 行ずらした列を挿入
 
 shift の引数で、ずらす数をコントロールできる。
 `https://note.nkmk.me/python-pandas-shift/`
@@ -328,8 +370,9 @@ df["yesterday_close_value"] = df['close'].shift()#最後の行は自動で削除
 |     4 |                     3 |
 |     5 |                     4 |
 
-- 関数を使用する  
-  イメージ：excel で各セルを使って関数を適用。
+### 関数を使用する
+
+イメージ：excel で各セルを使って関数を適用。
 
 ```apply.py
 df["関数"]= df.apply(lambda d: d['対象列1'] + d['対象列2'], axis=1)
@@ -349,7 +392,26 @@ df["関数"] = df.apply(func, axis=1)
 |        4 |        4 |    8 |
 |        5 |        5 |   10 |
 
-## 欠損値 nan の扱い
+## 前処理
+
+### 数値以外の文字列を含む場合の処理
+
+参考：[pandas.DataFrame で数値以外の要素の抽出](https://qiita.com/kusmoto/items/058abc5b97ebfe77cf01)
+
+```fillter_str.py
+# 数値ではない型の要素の抽出
+pic = df[['price']][df['price'].apply(lambda s:pd.to_numeric(s, errors='coerce')).isnull()]
+# ',' の削除，'/' が含まれる要素を欠損値で置換
+change_data = pic['price'].str.replace(',','').mask(pic['price'].str.contains('/'), np.nan)
+# 元データのコピーを作成し，該当箇所を置換
+df_c = df.copy()
+df.loc[pic.index,'price'] = change_data
+#'price' 列の数値を数値型に変換し，欠損値を含む行を削除
+df_c['price'] = pd.to_numeric(df_c['price'], errors = 'ignore')
+df_out  = df_c.dropna()
+```
+
+### 欠損値 nan の扱い
 
 ```dropna.py
 df.dropna() #nanの行を削除（行内に一つでもnanがあれば　行を削除）
@@ -368,52 +430,81 @@ df.fillna(method='ffill') #前の値で置き換え
 df.fillna(method='bfill') #後ろの値で置き換え
 ```
 
+### inf 弾く
+
+```inf.py
+import numpy as np
+df.replace([np.inf, -np.inf], np.nan)
+```
+
 ```apply.py
 df.apply(pd.Series.interpolate)#nanを前後の線形の値で埋めたい場合 https://openbook4.me/projects/183/sections/777
 ```
 
-## 文字列の置換
+### 文字列の置換
 
 ```replace.py
 df = df.replace([' ', '  :  ',"nan","  :  :  "], [np.nan, np.nan, np.nan, np.nan])#特定の文字列をnanに変更
 ```
 
-## 列への処理
+### 重複の確認と処理
 
-- 列 volume の名前を Volume に変更　 inplace=True で上書き
+```juhuku.py
+df.duplicated().any() #重複チェック
+df.duplicated(['x', 'y']).any() #部分的な重複チェック x と y 列の重複チェックは True
+df.drop_duplicates(['x', 'y']) # 重複データを削除　前のデータを残す
+df.drop_duplicates(['x', 'y'], keep='last') #重複データを削除　後のデータを残す
+```
+
+## 列 columns 関係
+
+### 列 volume の名前を Volume に変更　 inplace=True で上書き
 
 ```rename.py
 df.rename(columns = {'volume':'Volume'}, inplace=True)
 ```
 
-- 列番号を列名から取得する
+### 列番号を列名から取得する
 
 ```get_loc.py
 df.columns.get_loc('volume')
 ```
 
-- 条件を付けて行の削除
+### 条件を付けて行の削除
 
 ```row_drop.py
 df.drop(df.query('age < 25').index)
 ```
 
-- 列の削除
+### 列の削除
 
 ```drop.py
 df=df.drop("high", axis=1)#列の削除
 ```
 
-- 列の並べ替え
+### 列の並べ替え
 
 ```get_loc.py
 df=df.loc[:,["x","y","z"]]#列
 の順番を変更["y","x","Z"]を["x","y","z"]に並び替える
 ```
 
+### 列の順序を反転
+
+```retsu.py
+df[df.columns[::-1]]
+```
+
+### index の指定
+
+```index.py
+df=df.set_index("時間")
+df.index=pd.DatetimeIndex(df.index)
+```
+
 ## 型
 
-- 型を確認
+### 型を確認
 
 ```type.py
 df.dtypes # 型確認
@@ -430,7 +521,7 @@ df.dtypes # 型確認
   'U' Unicode
   'V' raw data (void)
 
-- 型変更
+### 型変更
 
 ```type_1.py
 df=df.apply(pd.to_numeric, errors='ignore') #型変更（数字に変換）エラーは無視
@@ -440,7 +531,9 @@ df['i'].astype(int)   #整数intに変換
 df['i'].astype(float) #浮動小数点floatに変換
 ```
 
-## 条件を与えて、データを抽出する
+## データ抽出
+
+### 条件を指定して抽出
 
 ```data.py
 df[df['age'] < 25] #比較演算子で条件指定
@@ -483,44 +576,33 @@ li = ['現在値','出来高',.....]
 df1=df[li]
 ```
 
-## 重複の確認と処理
+### テーブル間の差分(diff)でデータを抽出
 
-```juhuku.py
-df.duplicated().any() #重複チェック
-df.duplicated(['x', 'y']).any() #部分的な重複チェック x と y 列の重複チェックは True
-df.drop_duplicates(['x', 'y']) # 重複データを削除　前のデータを残す
-df.drop_duplicates(['x', 'y'], keep='last') #重複データを削除　後のデータを残す
+データを変更した際に、変更箇所のみを抽出したい時に使う  
+【use case】:レッドマインのチケットを csv で纏めて変更した際に、サーバへ反映するチケット id を抽出する
+
+```diff.py
+import pandas as pd
+df = pd.DataFrame([["リンゴ",1],["オレンジ",2],["いちご",3],["レモン",4],["マンゴー",5]],columns=["id","数量"])
+df_edit = df.copy()
+df_edit.loc[df_edit['id']=="レモン", '数量']=15
+df_diff = pd.concat([df,df_edit])
+df_diff = df_diff.drop_duplicates(keep=False)
+# keep="last"でdf_edit側の値を残す
+df_diff.drop_duplicates(subset="id",keep="last")
 ```
 
-## イタレーション（おすすめしない）
+## 行関係
 
-- 縦方向にループ
-
-```iterrows.py
-for i, v in df.iterrows(): #下記の場合は、X,Yの列名があり、行方向へのループ（列の場合は行名を入れる）
-    print (i, v['X'], v['Y'])    # iは行または列名　v は Series
-```
-
-- 横方向にループ
-
-```iteritems.py
-for i, v in df.iteritems():
-    print (i, v['a'], v['b'], v['c'])   # v は Series
-```
-
-## 上下反転(逆順)
+### 上下反転(逆順)
 
 ```upsidedown.py
 df.iloc[::-1]
 ```
 
-## 列の順序を反転
+## セル
 
-```retsu.py
-df[df.columns[::-1]]
-```
-
-## セルの選択
+### セルの選択
 
 ```select.py
 df.loc[df['項目']=="レモン", '数量'] #項目列レモンの数量列を選択
@@ -540,14 +622,51 @@ df.to_csv("test.csv", index=True)
 df.to_csv("test.csv", index=False)
 ```
 
-## 読み込み
+## pandas 読み込み
 
-- csv
+### csv
 
-```csv_write.py
+```csv_read.py
 df = pd.read_csv(os.path.join(folder_path,csv_list[0]), index_col=0)#一番左の列をindexにする
 df = df.astype("float")
 df.index=pd.DatetimeIndex(df.index)
+```
+
+### 時系列データ
+
+```time_read.py
+df=pd.read_csv("test_time.csv", header=0, index_col='time', parse_dates=True,na_values=[" ", 0],dtype="float")#読み込み
+df.index=pd.DatetimeIndex(df.index)#インデックスを時間に指定
+ df=df.between_time('9:00', '11:30')#特定の時間のみを取り出す（日時は関係なし）
+df_temp = df[df.index >= pd.Timestamp(2019,1,25)]#2019年1月25日以降のデータを出す
+```
+
+### codec error 読み込み時に codec のエラーが出る場合
+
+```codec.py
+import codec
+with codecs.open("file.csv", "r", "Shift-JIS", "ignore") as file:
+    df = pd.read_table(file, delimiter=",")
+```
+
+### 数値で読み込み（タイプを指定）
+
+```numerical.py
+df=pd.read_csv( "test.csv", header=0, dtype="int")
+df=pd.read_csv( "test.csv", header=0, dtype="float")
+```
+
+### 文字列で読み込み（タイプを指定）
+
+```str.py
+df=pd.read_csv( "test_other.csv", header=0, dtype="str")#文字列
+```
+
+### web から読み込み
+
+```web.py
+url = 'http://www.jma.go.jp/jp/warn/329_table.html'
+fetched_dataframes = pd.io.html.read_html(url)
 ```
 
 ## 文字列 すべてのセルの文字数を 8 個にする
@@ -563,64 +682,18 @@ pandas 文字列 各列の文字列を結合  https://qiita.com/piroyoung/items/
 df=df.assign(text_output=lambda df: df.apply(lambda row: "".join(row), axis=1))
 ```
 
-## index の指定
-
-```index.py
-df=df.set_index("時間")
-df.index=pd.DatetimeIndex(df.index)
-```
-
-## 時系列
+## 時間 timestamp
 
 ```timestamp.py
 today = pd.Timestamp(date.today())
 pd.Timestamp(2019,12,15,9,10,1) #2019年12月15日9時10分1秒
 ```
 
-## pandas 読み込み
-
-- 時系列データ
-
-```time_read.py
-df=pd.read_csv("test_time.csv", header=0, index_col='time', parse_dates=True,na_values=[" ", 0],dtype="float")#読み込み
-df.index=pd.DatetimeIndex(df.index)#インデックスを時間に指定
- df=df.between_time('9:00', '11:30')#特定の時間のみを取り出す（日時は関係なし）
-df_temp = df[df.index >= pd.Timestamp(2019,1,25)]#2019年1月25日以降のデータを出す
-```
-
-- codec error 読み込み時に codec のエラーが出る場合
-
-```codec.py
-import codec
-with codecs.open("file.csv", "r", "Shift-JIS", "ignore") as file:
-    df = pd.read_table(file, delimiter=",")
-```
-
-- 数値で読み込み（タイプを指定）
-
-```numerical.py
-df=pd.read_csv( "test.csv", header=0, dtype="int")
-df=pd.read_csv( "test.csv", header=0, dtype="float")
-```
-
-- 文字列で読み込み（タイプを指定）
-
-```str.py
-df=pd.read_csv( "test_other.csv", header=0, dtype="str")#文字列
-```
-
-- web から読み込み
-
-```web.py
-url = 'http://www.jma.go.jp/jp/warn/329_table.html'
-fetched_dataframes = pd.io.html.read_html(url)
-```
-
 ## sqlite
 
 sqlite は同時書き込みは苦手。書き込みは 1 個のみがよい。
 
-- 読み書き共通
+### 読み書き共通
 
 ```sqlite_common.py
 import pandas as pd
@@ -636,7 +709,7 @@ conn = sqlite3.connect(db_name)
 conn.close()
 ```
 
-- 書き込み
+### 書き込み
 
 test テーブルに対して、index 込で書き込みを実施する
 
@@ -646,7 +719,7 @@ df_temp.to_sql('test',conn,if_exists='append',index=True)
 
 ```
 
-- 読み込み
+### 読み込み
 
 test テーブルからデータを読み込み
 
@@ -670,4 +743,20 @@ df=pd.read_sql_query(sql_bun.format('stock_data'), conn, index_col='時間')
 df.index=pd.DatetimeIndex(df.index)
 df = df.replace([' ', '  :  ',"nan","  :  :  "], [np.nan, np.nan, np.nan, np.nan])
 
+```
+
+## イタレーション（おすすめしない）
+
+- 縦方向にループ
+
+```iterrows.py
+for i, v in df.iterrows(): #下記の場合は、X,Yの列名があり、行方向へのループ（列の場合は行名を入れる）
+    print (i, v['X'], v['Y'])    # iは行または列名　v は Series
+```
+
+- 横方向にループ
+
+```iteritems.py
+for i, v in df.iteritems():
+    print (i, v['a'], v['b'], v['c'])   # v は Series
 ```

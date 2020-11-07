@@ -8,6 +8,47 @@ tags:
 
 調べることをまとめました。都度更新です
 
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [pythonの忘備録](#pythonの忘備録)
+  - [python の作法](#python-の作法)
+    - [アンダースコア"\_"の役割](#アンダースコア_の役割)
+  - [jupyter 関係](#jupyter-関係)
+    - [jupyter のマジックコマンド](#jupyter-のマジックコマンド)
+  - [python pip](#python-pip)
+  - [バイナリのライブラリ](#バイナリのライブラリ)
+  - [python からフォルダやファイルを開く](#python-からフォルダやファイルを開く)
+  - [クリップボード（文字列）　clipboard](#クリップボード文字列clipboard)
+  - [クリップボードから画像を取得](#クリップボードから画像を取得)
+  - [クリップボードに画像を入れる](#クリップボードに画像を入れる)
+  - [画像を結合](#画像を結合)
+  - [画像を PDF に変換](#画像を-pdf-に変換)
+  - [Gitpython](#gitpython)
+  - [リスト内包表記](#リスト内包表記)
+  - [辞書](#辞書)
+  - [ライブラリのリロード、再読み込み](#ライブラリのリロード再読み込み)
+  - [例外処理](#例外処理)
+  - [メッセージをポップアップ popup](#メッセージをポップアップ-popup)
+  - [beep 音を出す　音を出す　知らせる](#beep-音を出す音を出す知らせる)
+  - [ショートカットを作成](#ショートカットを作成)
+  - [時間](#時間)
+  - [sqlite 関係](#sqlite-関係)
+  - [ポイントを時計回りに並べ替える](#ポイントを時計回りに並べ替える)
+  - [数字の表示 for CAE (浮動小数点　 e または E で表示)](#数字の表示-for-cae-浮動小数点-e-または-e-で表示)
+  - [文字列](#文字列)
+  - [selenium](#selenium)
+  - [subprocess と log](#subprocess-と-log)
+  - [file/folder 操作](#filefolder-操作)
+  - [for 文](#for-文)
+  - [環境変数](#環境変数)
+  - [クラスのテンプレ](#クラスのテンプレ)
+
+<!-- /code_chunk_output -->
+
+
 ## python の作法
 
 ### アンダースコア"\_"の役割
@@ -145,15 +186,6 @@ rep = git.Repo.init(taisho_path)#リポジトリ作成
 rep = git.Repo(taisho_path)
 repo.git.add("--all")#全てをステージング
 repo.index.commit("initial commit")#initial commit
-```
-
-## numpy
-
-- inf 弾く
-
-```inf.py
-import numpy as np
-df.replace([np.inf, -np.inf], np.nan)
 ```
 
 ## リスト内包表記
