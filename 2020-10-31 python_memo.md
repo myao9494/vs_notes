@@ -4,50 +4,54 @@ tags:
   - python
 ---
 
-# pythonの忘備録
+# python の忘備録
 
 調べることをまとめました。都度更新です
-
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 <!-- code_chunk_output -->
 
-- [pythonの忘備録](#pythonの忘備録)
+- [python の忘備録](#python-の忘備録)
   - [python の作法](#python-の作法)
     - [アンダースコア"\_"の役割](#アンダースコア_の役割)
   - [jupyter 関係](#jupyter-関係)
     - [jupyter のマジックコマンド](#jupyter-のマジックコマンド)
-  - [python pip](#python-pip)
-  - [バイナリのライブラリ](#バイナリのライブラリ)
-  - [python からフォルダやファイルを開く](#python-からフォルダやファイルを開く)
-  - [クリップボード（文字列）　clipboard](#クリップボード文字列clipboard)
-  - [クリップボードから画像を取得](#クリップボードから画像を取得)
-  - [クリップボードに画像を入れる](#クリップボードに画像を入れる)
-  - [画像を結合](#画像を結合)
-  - [画像を PDF に変換](#画像を-pdf-に変換)
-  - [Gitpython](#gitpython)
+  - [判定](#判定)
+    - [bool 値の判定](#bool-値の判定)
+    - [if 文](#if-文)
   - [リスト内包表記](#リスト内包表記)
   - [辞書](#辞書)
-  - [ライブラリのリロード、再読み込み](#ライブラリのリロード再読み込み)
+  - [for 文](#for-文)
+  - [file/folder 操作](#filefolder-操作)
   - [例外処理](#例外処理)
+  - [ライブラリ](#ライブラリ)
+    - [python pip](#python-pip)
+    - [ライブラリのリロード、再読み込み](#ライブラリのリロード再読み込み)
+    - [バイナリのライブラリ](#バイナリのライブラリ)
+  - [python からフォルダやファイルを開く](#python-からフォルダやファイルを開く)
+  - [クリップボード　 clipboard](#クリップボード-clipboard)
+    - [クリップボード（文字列）](#クリップボード文字列)
+    - [クリップボード（画像）](#クリップボード画像)
+  - [画像関係](#画像関係)
+    - [結合](#結合)
+    - [画像を PDF に変換](#画像を-pdf-に変換)
+  - [Gitpython](#gitpython)
   - [メッセージをポップアップ popup](#メッセージをポップアップ-popup)
   - [beep 音を出す　音を出す　知らせる](#beep-音を出す音を出す知らせる)
   - [ショートカットを作成](#ショートカットを作成)
   - [時間](#時間)
   - [sqlite 関係](#sqlite-関係)
   - [ポイントを時計回りに並べ替える](#ポイントを時計回りに並べ替える)
-  - [数字の表示 for CAE (浮動小数点　 e または E で表示)](#数字の表示-for-cae-浮動小数点-e-または-e-で表示)
   - [文字列](#文字列)
+    - [decode](#decode)
+    - [数字の表示 for CAE (浮動小数点　 e または E で表示)](#数字の表示-for-cae-浮動小数点-e-または-e-で表示)
   - [selenium](#selenium)
   - [subprocess と log](#subprocess-と-log)
-  - [file/folder 操作](#filefolder-操作)
-  - [for 文](#for-文)
   - [環境変数](#環境変数)
   - [クラスのテンプレ](#クラスのテンプレ)
 
 <!-- /code_chunk_output -->
-
 
 ## python の作法
 
@@ -66,7 +70,155 @@ tags:
 - %quickref : サポートされる Magic Command の一覧の表示
 - %matplotlib inline : jupyter 内に表示させる
 
-## python pip
+## 判定
+
+### bool 値の判定
+
+```bool
+done = agent_pos == 0 # agent_pos = 0ならば、done = Trueとなる。
+```
+
+### if 文
+
+```if
+reward = 1 if done else -0.1 #done = True　ならば、reward=1 それ以外は reward = -0.1
+```
+
+## リスト内包表記
+
+```list_nai.py
+stocks = [i for i in os.listdir(".") if mei in i ]
+stocks = [i for i in os.listdir(".") if mei in i and "csv" in i]
+```
+
+## 辞書
+
+- 辞書への入力と出力
+
+```dict_input_output.py
+dict_test = {}
+retu_mei = ["現在値","出来高","前日終値"]
+
+for key in retu_mei:
+    dict_test[key] = 10
+
+for key in dict_test:
+    print(key , dict_test[key])
+```
+
+- 辞書型一般
+
+```dict.py
+mydict = {"papa":"L", "O":"Orage", "G":"Grapes"}
+mydict.keys() #keyの表示
+list(mydict.items()) #リスト化
+```
+
+## for 文
+
+- インデックスを取得して for 文を回す enumerate
+
+```index.py
+for no,data in enumerate(scaled_data):
+    print(no,data)
+```
+
+- 2 つのリストを平行にループする zip
+
+```zip.py
+for a, b in zip(scaled_data, scaled_parameters):
+    print(a,b)
+```
+
+## file/folder 操作
+
+- 相対パスから絶対パスに変換
+
+```pathlib.py
+import pathlib
+file_path = pathlib.Path("./agent")
+a_path = file_path.resolve()#絶対パスに変換
+str(a_path)#pathを文字列化
+```
+
+- フォルダの中のファイルをリストで取得する
+
+```file_mei.py
+import os
+data_folder = os.path.join(os.getcwd(),"../data")
+stocks = [i for i in os.listdir(data_folder) if '.csv' in i]
+```
+
+- file を読み込んで、list にする
+
+```read.py
+with open(r"C:\***.txt") as f:
+    li = f.readlines()
+print(li)
+
+li_replace = [s.replace('\n', '') for s in li]
+print(li_replace)
+```
+
+- csv へ書き込み
+
+```csv_write.py
+l = [[0, 1, 2], ['a\nb', 'x', 'y']]
+
+with open('data/temp/sample_writer_linebreak.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(l)
+```
+
+- フォルダの操作
+
+```folder.py
+if not os.path.exists(os.path.dirname(f_path_copy)):#フォルダが無ければ作成する
+    os.makedirs(os.path.dirname(f_path_copy))
+
+shutil.rmtree("diff_env")#フォルダの削除
+
+os.mkdir("diff_env", exist_ok=True))#フォルダの作成 diff_enbがあってもエラーにならない
+```
+
+- ファイルとフォルダのコピー
+
+```folder.py
+import shutil
+import pathlib
+
+# コピーするファイル
+fromFilePath = pathlib.Path('./test.txt')
+# コピー先のディレクトリ(フォルダ)
+toDirPath = pathlib.Path('./copydir')
+
+# ディレクトリが無ければ作る
+#  parents=True -> 親ディレクトリが無ければ作成
+#  exist_ok=True -> ディレクトリがあってもエラーにしない
+toDirPath.mkdir(parents=True, exist_ok=True)
+
+# ファイルコピー
+shutil.copy(fromFilePath, toDirPath)
+
+# フォルダのコピー（中身こみ）
+shutil.copytree('./sample', './sample_backup')
+```
+
+## 例外処理
+
+- 例外処理した際のエラーメッセージを表示させる
+
+```try_except_trackback.py
+import traceback
+try:
+   aaa
+except:
+   traceback.print_exc()
+```
+
+## ライブラリ
+
+### python pip
 
 インストールされているライブラリを表示する
 
@@ -74,7 +226,14 @@ tags:
 pip freeze
 ```
 
-## バイナリのライブラリ
+### ライブラリのリロード、再読み込み
+
+```reload.py
+import importlib
+importlib.reload(foo)
+```
+
+### バイナリのライブラリ
 
 以下のサイトからダウンロードして、pip で OK
 
@@ -88,14 +247,18 @@ from pathlib import Path
 os.startfile(Path.cwd())#現在のフォルダを開く
 ```
 
-## クリップボード（文字列）　clipboard
+## クリップボード　 clipboard
+
+### クリップボード（文字列）
 
 ```clip.py
 tex = pyperclip.paste() #クリップボードから取り出す
 pyperclip.copy(tex) #クリップボードに入れる
 ```
 
-## クリップボードから画像を取得
+### クリップボード（画像）
+
+- 画像を取り出す
 
 ```get_image_from_clip_board.py
 from PIL import ImageGrab
@@ -103,7 +266,7 @@ im = ImageGrab.grabclipboard()
 im.rotate(-90,expand=True)#回転
 ```
 
-## クリップボードに画像を入れる
+- 画像を入れる
 
 ```to_clipboard.py
 from io import BytesIO
@@ -124,7 +287,9 @@ output.close()
 send_to_clipboard(win32clipboard.CF_DIB, data)
 ```
 
-## 画像を結合
+## 画像関係
+
+### 結合
 
 `https://note.nkmk.me/python-pillow-concat-images/`
 
@@ -144,7 +309,7 @@ def get_concat_v_cut(im1, im2):
     return dst
 ```
 
-## 画像を PDF に変換
+### 画像を PDF に変換
 
 インストール
 
@@ -186,55 +351,6 @@ rep = git.Repo.init(taisho_path)#リポジトリ作成
 rep = git.Repo(taisho_path)
 repo.git.add("--all")#全てをステージング
 repo.index.commit("initial commit")#initial commit
-```
-
-## リスト内包表記
-
-```list_nai.py
-stocks = [i for i in os.listdir(".") if mei in i ]
-stocks = [i for i in os.listdir(".") if mei in i and "csv" in i]
-```
-
-## 辞書
-
-- 辞書への入力と出力
-
-```dict_input_output.py
-dict_test = {}
-retu_mei = ["現在値","出来高","前日終値"]
-
-for key in retu_mei:
-    dict_test[key] = 10
-
-for key in dict_test:
-    print(key , dict_test[key])
-```
-
-- 辞書型一般
-
-```dict.py
-mydict = {"papa":"L", "O":"Orage", "G":"Grapes"}
-mydict.keys() #keyの表示
-list(mydict.items()) #リスト化
-```
-
-## ライブラリのリロード、再読み込み
-
-```reload.py
-import importlib
-importlib.reload(foo)
-```
-
-## 例外処理
-
-- 例外処理した際のエラーメッセージを表示させる
-
-```try_except_trackback.py
-import traceback
-try:
-   aaa
-except:
-   traceback.print_exc()
 ```
 
 ## メッセージをポップアップ popup
@@ -352,18 +468,9 @@ pnt = sorted(pnt, key=_angle_between)#時計回り
 pnt = sorted(pnt, key=_angle_between,reverse=True)#反時計回り
 ```
 
-## 数字の表示 for CAE (浮動小数点　 e または E で表示)
-
-```sample.py
-a=1.5/10000 #0.00015
-b="{:.4e}".format(a) #'1.5000e-04'
-c = b.replace("e","E") #''1.5000E-04'
-d = '{:0=3}'.format(1) #0埋め '001'
-```
-
 ## 文字列
 
-- decode
+### decode
 
 ```str.py
 def decodef(src):#【デコード】
@@ -372,6 +479,15 @@ def decodef(src):#【デコード】
         return src
     except:
         print("decode error")
+```
+
+### 数字の表示 for CAE (浮動小数点　 e または E で表示)
+
+```sample.py
+a=1.5/10000 #0.00015
+b="{:.4e}".format(a) #'1.5000e-04'
+c = b.replace("e","E") #''1.5000E-04'
+d = '{:0=3}'.format(1) #0埋め '001'
 ```
 
 ## selenium
@@ -436,96 +552,6 @@ log に関して
 `https://qiita.com/amedama/items/b856b2f30c2f38665701`
 
 上記はファイルに書き出す場合、#で消したいる部分を消せば、ターミナルと両方に出力される。
-
-## file/folder 操作
-
-- 相対パスから絶対パスに変換
-
-```pathlib.py
-import pathlib
-file_path = pathlib.Path("./agent")
-a_path = file_path.resolve()#絶対パスに変換
-str(a_path)#pathを文字列化
-```
-
-- フォルダの中のファイルをリストで取得する
-
-```file_mei.py
-import os
-data_folder = os.path.join(os.getcwd(),"../data")
-stocks = [i for i in os.listdir(data_folder) if '.csv' in i]
-```
-
-- file を読み込んで、list にする
-
-```read.py
-with open(r"C:\***.txt") as f:
-    li = f.readlines()
-print(li)
-
-li_replace = [s.replace('\n', '') for s in li]
-print(li_replace)
-```
-
-- csv へ書き込み
-
-```csv_write.py
-l = [[0, 1, 2], ['a\nb', 'x', 'y']]
-
-with open('data/temp/sample_writer_linebreak.csv', 'w', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerows(l)
-```
-
-- フォルダの操作
-
-```folder.py
-if not os.path.exists(os.path.dirname(f_path_copy)):#フォルダが無ければ作成する
-    os.makedirs(os.path.dirname(f_path_copy))
-
-shutil.rmtree("diff_env")#フォルダの削除
-
-os.mkdir("diff_env", exist_ok=True))#フォルダの作成 diff_enbがあってもエラーにならない
-```
-
-- ファイルとフォルダのコピー
-
-```folder.py
-import shutil
-import pathlib
-
-# コピーするファイル
-fromFilePath = pathlib.Path('./test.txt')
-# コピー先のディレクトリ(フォルダ)
-toDirPath = pathlib.Path('./copydir')
-
-# ディレクトリが無ければ作る
-#  parents=True -> 親ディレクトリが無ければ作成
-#  exist_ok=True -> ディレクトリがあってもエラーにしない
-toDirPath.mkdir(parents=True, exist_ok=True)
-
-# ファイルコピー
-shutil.copy(fromFilePath, toDirPath)
-
-# フォルダのコピー（中身こみ）
-shutil.copytree('./sample', './sample_backup')
-```
-
-## for 文
-
-- インデックスを取得して for 文を回す enumerate
-
-```index.py
-for no,data in enumerate(scaled_data):
-    print(no,data)
-```
-
-- 2 つのリストを平行にループする zip
-
-```zip.py
-for a, b in zip(scaled_data, scaled_parameters):
-    print(a,b)
-```
 
 ## 環境変数
 
