@@ -1,7 +1,6 @@
 ---
 tags:
-  - vscode
-  - memo
+  - 01_チートシート
 ---
 
 # VScode のメモ {ignore=true}

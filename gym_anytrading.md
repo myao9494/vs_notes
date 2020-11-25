@@ -17,7 +17,7 @@ jupyter notebook
 
 ### github readme
 
-- EX と Stock をサポート
+- FX と Stock をサポート
 - gym で強化学習できる
 - TradingEnv は、あらゆる種類の取引環境をサポートできるように設計（TradingEnv を継承することによって）
 
@@ -39,6 +39,13 @@ jupyter notebook
 
 quantstats:株の分析のためのライブラリ
 
+### lambdaを使うのは？
+
+これは、DummyVecEnvの仕様ですね。。。lambadaで渡さないとエラーとなりました
+
+### Test Env
+
+#### np.newaxis
 
 
 ## 確認事項
@@ -46,4 +53,4 @@ quantstats:株の分析のためのライブラリ
 - [ ] df で最低限必要な列を確認 Adj Close は必要か？たぶん不必要
 - [ ] 開始が必ずshortになっているのはなぜ？
 - [ ] rewardとprofitの計算はどうなっている？
-- [ ] 
+- [ ] 報酬を受け取る条件を確認する必要あり

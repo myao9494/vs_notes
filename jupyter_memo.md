@@ -1,6 +1,7 @@
 ---
 tags:
   - 01_チートシート
+  - python
 ---
 
 # 2020-11-21 jupyter_memo

@@ -1,7 +1,8 @@
 ---
 tags:
   - 01_チートシート
-  - pandas
+  - python
+
 ---
 
 # pandas チートシートです

@@ -1,7 +1,7 @@
 ---
 tags:
     - 01_チートシート
-    - numpy
+    - python
 ---
 
 # 2020-11-08 numpy_memo
