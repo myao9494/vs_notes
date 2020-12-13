@@ -21,19 +21,20 @@ tags:
 
 ## ショートカット
 
-| 説明                                    | ショートカットキー     |
-| --------------------------------------- | ---------------------- |
-| コマンドパレット                        | F1 または Ctrl+Shift+P |
-| view の拡大/縮小                        | Ctrl + / Ctrl -        |
-| エクスプローラを表示                    | Ctrl+Shift+E           |
-| 関数の説明（パラメーター ヒント）を表示 | Ctrl+Shift+Space       |
-| 入力候補                                | Ctrl+Space             |
-| コード整形ツール(Fomatter)              | Shift + Alt + F        |
-| bookmark                                | Alt+Ctrl+K             |
-| Excel to Markdown table                 | Shift+Alt+V            |
-| タブの選択                              | Ctrl + Tab             |
-| マルチカーソル (1 件づつ選択)           | Ctrl + D               |
-| マルチカーソル (1 件飛ばす）            | Ctrl + K -> Ctrl + D   |
+| 説明                                    | WIN                    | mac book    |
+| --------------------------------------- | ---------------------- | ----------- |
+| コマンドパレット                        | F1 または Ctrl+Shift+P | ⌘ + ⇧ + P |
+| view の拡大/縮小                        | Ctrl + / Ctrl -        | ⌘ + / ⌘ - |
+| エクスプローラを表示                    | Ctrl+Shift+E           |             |
+| 関数の説明（パラメーター ヒント）を表示 | Ctrl+Shift+Space       |             |
+| 入力候補                                | Ctrl+Space             |             |
+| コード整形ツール(Fomatter)              | Shift + Alt + F        | ⇧ + ⌥ + F |
+| bookmark                                | Alt+Ctrl+K             |             |
+| Excel to Markdown table                 | Shift+Alt+V            |             |
+| タブの選択                              | Ctrl + Tab             |             |
+| マルチカーソル (1 件づつ選択)           | Ctrl + D               |             |
+| マルチカーソル (1 件飛ばす）            | Ctrl + K -> Ctrl + D   |             |
+| タブ切り替え                            | Ctrl + Tab             | ^ + tab     |
 
 ## コマンド
 
