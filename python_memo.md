@@ -42,6 +42,7 @@ tags:
   - [sqlite 関係](#sqlite-関係)
   - [ポイントを時計回りに並べ替える](#ポイントを時計回りに並べ替える)
   - [文字列](#文字列)
+    - [正規表現を用いた置換（マッチした一部を再利用）](#正規表現を用いた置換マッチした一部を再利用)
     - [decode](#decode)
     - [数字の表示 for CAE (浮動小数点　 e または E で表示)](#数字の表示-for-cae-浮動小数点-e-または-e-で表示)
   - [selenium](#selenium)
@@ -457,6 +458,24 @@ pnt = sorted(pnt, key=_angle_between,reverse=True)#反時計回り
 ```
 
 ## 文字列
+
+### 正規表現を用いた置換（マッチした一部を再利用）
+
+https://www.aipacommander.com/entry/2014/06/17/184220
+
+`(.*)`の部分が再利用されます。対応は、`\\1`と`\\2`になる
+
+下記例は、html の image のリンクを markdown に変換するときに使いました
+
+```resub.py
+import re
+tex = '<img src="image/2020-11-21-11-29-29.png" alt="example">'
+pattern = '<img src="(.*)" alt="(.*)">'
+rep = '![\\2](\\1)'
+rep_tex = re.sub(pattern,rep,tex)
+```
+
+`>> '![example](image/2020-11-21-11-29-29.png)'`
 
 ### decode
 

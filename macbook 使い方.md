@@ -7,7 +7,7 @@ tags:
 
 ⌘ = command
 ⌥ = option
-⇧ = shift
+⇧ = shifR
 ⌃ = control
 
 ## キー
@@ -19,6 +19,7 @@ tags:
 | PageUp キー   | command ＋ ↑         |
 | PageDown キー | command ＋ ↓         |
 | delete        | fn + delete or ⌃ + D |
+| \             | √ + ¥                |
 
 ## ショートカット
 
@@ -48,3 +49,15 @@ $ open . #currenr dir
 ```zsh
 
 ```
+
+## git が使えなくなったとき
+
+アプデすると、使えなくなる場合がある。そのときは、下記コマンドを実行すれば OK
+
+```zsh
+ xcode-select --install
+```
+
+## zshの注意！
+
+pip を実行した再に、`zsh: 1.14.0 not found`が出る場合がある。これは予約語と干渉するためらしい。対策として、`pip install 'tensorflow==1.14.0'`のように ''で囲みましょう！
