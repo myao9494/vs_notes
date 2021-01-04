@@ -1,6 +1,6 @@
 ---
 tags:
-  - mac
+  - macbook
 ---
 
 # macbook_setup
@@ -10,33 +10,34 @@ tags:
 <!-- code_chunk_output -->
 
 - [macbook_setup](#macbook_setup)
-  - [初期設定](#初期設定)
+  - [システム環境設定](#システム環境設定)
     - [コンピュータ名の変更](#コンピュータ名の変更)
-    - [解像度の変更](#解像度の変更)
-    - [Night Shift をオンにする](#night-shift-をオンにする)
+    - [ディスプレイの設定](#ディスプレイの設定)
+    - [トラックパッドの設定](#トラックパッドの設定)
+    - [Dock とメニューバーの設定](#dock-とメニューバーの設定)
+    - [ファイアウォールの設定](#ファイアウォールの設定)
+  - [キーボードの設定](#キーボードの設定)
+  - [fineer の設定](#fineer-の設定)
   - [日本語入力関係](#日本語入力関係)
     - [google 日本語入力](#google-日本語入力)
-  - [トラックパッドの設定](#トラックパッドの設定)
-  - [fineer の設定](#fineer-の設定)
-    - [表示](#表示)
-    - [設定](#設定)
-  - [バッテリーのパーセントを表示](#バッテリーのパーセントを表示)
-  - [Dock の設定](#dock-の設定)
-    - [表示位置](#表示位置)
-  - [ファイアウォールをオン](#ファイアウォールをオン)
-  - [確認ダイアログの選択肢を変更できるようにする](#確認ダイアログの選択肢を変更できるようにする)
-  - [ショートカットを適正化（skitch のために）](#ショートカットを適正化skitch-のために)
+    - [辞書](#辞書)
   - [git](#git)
     - [install](#install)
     - [git の初期設定](#git-の初期設定)
   - [VS code](#vs-code)
+    - [設定](#設定)
   - [anaconda](#anaconda)
     - [インストール](#インストール)
     - [アンインストール](#アンインストール)
-  - [miniconda](#miniconda)
-    - [install](#install-1)
-    - [uninstall](#uninstall)
   - [chrome](#chrome)
+    - [表示設定](#表示設定)
+  - [無料ソフト インストール](#無料ソフト-インストール)
+    - [CheatSheet](#cheatsheet)
+    - [Clipy](#clipy)
+    - [Alfred](#alfred)
+    - [AppCleaner](#appcleaner)
+    - [skitch](#skitch)
+    - [MindNode](#mindnode)
   - [homebrew](#homebrew)
     - [ｘ 64 インストール](#ｘ-64-インストール)
     - [M1 版をインストール](#m1-版をインストール)
@@ -48,17 +49,10 @@ tags:
     - [公開鍵の作成](#公開鍵の作成)
     - [公開鍵をサーバ側へ登録（ex github)](#公開鍵をサーバ側へ登録ex-github)
     - [config file の作成](#config-file-の作成)
-  - [無料ソフト インストール](#無料ソフト-インストール)
-    - [CheatSheet](#cheatsheet)
-    - [Clipy](#clipy)
-    - [Alfred](#alfred)
-    - [AppCleaner](#appcleaner)
-    - [skitch](#skitch)
-    - [MindNode](#mindnode)
 
 <!-- /code_chunk_output -->
 
-## 初期設定
+## システム環境設定
 
 ### コンピュータ名の変更
 
@@ -66,19 +60,55 @@ tags:
 1. 共有をクリック
 1. コンピュータ名を適宜変更する
 
-### 解像度の変更
-
-1. システム環境設定を開く
-1. ディスプレイをクリック
-1. 解像度の変更をクリック
-1. スペースを拡大をクリック
-
-### Night Shift をオンにする
+### ディスプレイの設定
 
 1. システム環境設定を開く
 1. ディスプレイをクリック
 1. Night Shift をクリック
 1. スケジュールで時間を入れるか、日の入りから日の出までにする
+
+### トラックパッドの設定
+
+1. システム環境設定を開く
+1. チェックできるところは全部チェックする
+1. 軌跡の速さを調節する
+
+### Dock とメニューバーの設定
+
+1. システム環境設定をクリック
+1. Dock とメニューバーをクリック
+1. ウィンドウの左サイドバーを下にスライド
+1. バッテリーをクリック
+1. 割合（%）を表示にチェックを入れる
+1. dock の位置：画面上の位置の右にチェックを入れる
+
+### ファイアウォールの設定
+
+1. システム環境設定を開く
+1. ファイアウォールをクリック
+1. ファイアウォールをオンにするをクリック
+
+## キーボードの設定
+
+1. システム環境変数を開く
+1. キーボード
+1. ショートカット
+1. コントロール間のフォーカス移動をキーボードで操作 にチェック
+1. スクリーン
+1. ⌘⇧5 と ⌘⇧6  のチェックを外す（skitch のために）
+
+## fineer の設定
+
+1. 何かフォルダを開く
+1. 画面左上の Finder をクリック
+1. 環境設定をクリック
+1. 詳細タブ
+1. 全てのファイル名拡張子を表示にチェックを入れる
+1. 画面上のメニューから表示をクリック
+1. ステータスバーを表示をクリック
+1. パスバーを表示をクリック
+1. サイドバーを表示
+1. よく使うフォルダをサイドバーにドラッグ&ドロップして追加する
 
 ## 日本語入力関係
 
@@ -91,71 +121,9 @@ https://www.google.co.jp/ime/　からダウンロード
 1. 環境設定をクリックして、入力補助の数字を半角に変更
 1. スペースを半角に変更
 
-## トラックパッドの設定
+### 辞書
 
-1. システム環境設定を開く
-1. チェックできるところは全部チェックする
-1. 軌跡の速さを調節する
-
-## fineer の設定
-
-### 表示
-
-1. 何かフォルダを開く
-1. 画面左上の Finder をクリック
-1. 環境設定をクリック
-1. 画面上のメニューから表示をクリック
-1. ステータスバーを表示をクリック
-1. パスバーを表示をクリック
-1. サイドバーを表示
-1. よく使うフォルダをサイドバーにドラッグ&ドロップして追加する
-
-### 設定
-
-1. Finder を開く
-1. 画面左上の Finder をクリック
-1. 環境設定をクリック
-1. 歯車アイコンの詳細をクリック
-1. 全てのファイル名拡張子を表示にチェックを入れる
-
-## バッテリーのパーセントを表示
-
-1. 画面右上のアップルマーク をクリック
-1. システム環境設定をクリック
-1. Dock とメニューバーをクリック
-1. ウィンドウの左サイドバーを下にスライド
-1. バッテリーをクリック
-1. 割合（%）を表示にチェックを入れる
-
-## Dock の設定
-
-### 表示位置
-
-1. 画面右上のアップルマーク をクリック
-1. システム環境設定をクリック
-1. Dock とメニューバーをクリック
-1. 画面上の位置の右にチェックを入れる
-
-## ファイアウォールをオン
-
-1. システム環境設定を開く
-1. ファイアウォールをクリック
-1. ファイアウォールをオンにするをクリック
-
-## 確認ダイアログの選択肢を変更できるようにする
-
-1. システム環境変数を開く
-1. キーボード
-1. ショートカット
-1. コントロール間のフォーカス移動をキーボードで操作 にチェック
-
-## ショートカットを適正化（skitch のために）
-
-1. システム環境変数を開く
-1. キーボード
-1. ショートカット
-1. スクリーン
-1. ⌘⇧5 と ⌘⇧6  のチェックを外す
+1. 自分の名前を登録
 
 ## git
 
@@ -185,9 +153,20 @@ m1 対応は insider しか無かったので、下記からインストール
 
 https://code.visualstudio.com/insiders/#
 
+### 設定
+
+自分のリポジトリを落としてきて設定する
+
+1. エクステンションや設定関係
+   https://github.com/myao9494/VS_Code_setting_myao
+1. vsnotes
+   https://github.com/myao9494/vs_notes
+
 ## anaconda
 
 ### インストール
+
+https://www.anaconda.com/products/individual#Downloads
 
 m1 対応は無かったので、通常の intel mac 用を公式 HP からダウンロードしてインストール
 
@@ -206,33 +185,46 @@ https://code-graffiti.com/how-to-unistall-anaconda-on-mac/
    `/Users/myao9494/opt/homebrew`の下にある
 1. shell の Anaconda への PATH を削除
 
-## miniconda
-
-anaconda でて tensorflow やろうとしてらダメだったので、miniconda をやってみた
-
-https://braveam.com/archives/1409
-
-### install
-
-以下から arm64 (Apple Silicon) をダウンロード
-
-https://github.com/conda-forge/miniforge
-
-以下のコマンドを実行
-
-```zsh
-bash /Users/username/Downloads/Miniforge3-MacOSX-arm64.sh
-```
-
-いろいろ聞かれるけど、yes で 1`/Users/username/miniforge3`にインストールされる
-
-### uninstall
-
-TBD
-
 ## chrome
 
 m1 用をインストール、問題なく快適
+
+### 表示設定
+
+1. ツールバーの表示で、全画面表示でもツールバーを表示する設定にする
+
+## 無料ソフト インストール
+
+### CheatSheet
+
+コマンドキーを長押しするだけで、各種アプリのショートカットキーが表
+
+https://mediaatelier.com/CheatSheet/
+
+### Clipy
+
+クリップボードアプリ
+
+https://clipy-app.com/
+
+### Alfred
+
+https://www.alfredapp.com/
+
+### AppCleaner
+
+アプリ本体とそれにまつわるものも全て削除してくれる有名なアプリ
+設定で、web bookmarks で各ブラウザのブックマークを追加する
+
+https://freemacsoft.net/appcleaner/
+
+### skitch
+
+appstore からインストールする
+
+### MindNode
+
+appstore からインストール
 
 ## homebrew
 
@@ -362,35 +354,3 @@ ssh -T git@github.com
 ```zsh
 Hi username! You've successfully authenticated, but GitHub does not provide shell access.
 ```
-
-## 無料ソフト インストール
-
-### CheatSheet
-
-コマンドキーを長押しするだけで、各種アプリのショートカットキーが表
-
-https://mediaatelier.com/CheatSheet/
-
-### Clipy
-
-クリップボードアプリ
-
-https://clipy-app.com/
-
-### Alfred
-
-https://www.alfredapp.com/
-
-### AppCleaner
-
-アプリ本体とそれにまつわるものも全て削除してくれる有名なアプリ
-
-https://freemacsoft.net/appcleaner/
-
-### skitch
-
-appstore からインストールする
-
-### MindNode
-
-appstore からインストール

@@ -5,6 +5,8 @@ tags:
 
 # macbook の再インストール
 
+https://www.sin-space.com/entry/m1mac-recovery
+
 ## 準備
 
 icloud の id(mail adress)と、パスワード

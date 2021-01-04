@@ -1,6 +1,6 @@
 ---
 tags:
-  - mac
+  - macbook
 ---
 
 # macbook 使い方
@@ -40,14 +40,17 @@ tags:
 - finder を開く
 
 ```zsh
-$ open ~ #home
-$ open . #currenr dir
+open ~ #home
+open . #currenr dir
 ```
 
 - vscode を開く
 
-```zsh
+vscode でコマンドパレットを開き、shell と売って、パスをターミナルに登録する
 
+```zsh
+code ~ #home
+code . #currenr dir
 ```
 
 ## git が使えなくなったとき
@@ -58,6 +61,6 @@ $ open . #currenr dir
  xcode-select --install
 ```
 
-## zshの注意！
+## zsh の注意！
 
 pip を実行した再に、`zsh: 1.14.0 not found`が出る場合がある。これは予約語と干渉するためらしい。対策として、`pip install 'tensorflow==1.14.0'`のように ''で囲みましょう！
