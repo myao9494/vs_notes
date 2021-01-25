@@ -1,0 +1,6 @@
+---
+tags:
+  - NoCode
+---
+
+# NoCode
