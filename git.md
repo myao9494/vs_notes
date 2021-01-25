@@ -1,15 +1,53 @@
 ---
 tags:
-    - 01_チートシート
+  - 01_チートシート
 ---
 
 # 2020-10-31 git
 
 ## 用語
 
-| 用語    | 説明                             |
-|-------|--------------------------------|
+| 用語       | 説明                                                   |
+| ---------- | ------------------------------------------------------ |
 | 作業ツリー | Git で管理されたディレクトリ(と含まれるファイル)のこと |
+
+## git commit をなかったことに(一人 git の場合)
+
+```zsh
+git reset --soft "HEAD^"
+git push -f origin HEAD
+```
+
+## git commit をなかったことに(共有プロの場合)
+
+### プッシュ前
+
+- 直前の Commit だけを修正する場合： amend
+- Commit を消したい場合： reset
+- 古い Commit を修正する場合： rebase
+
+### プッシュ後
+
+```zsh
+git revert <commit id>
+git revert "HEAD^"
+
+git push
+```
+
+## リモートに強制的に合わせる
+
+```zsh
+git fetch origin
+git reset --hard origin/master
+```
+
+## issue とリンクしたコミット
+
+コミットメッセージに以下を加えれば OK
+
+- "README.md #2 修正 " :#issue 番号があれば、紐づく
+- "README.md create close #1":cloae #issue 番号 でクローズする
 
 ## git command
 
