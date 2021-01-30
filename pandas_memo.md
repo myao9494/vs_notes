@@ -2,7 +2,6 @@
 tags:
   - 01_チートシート
   - python
-
 ---
 
 # pandas チートシートです
@@ -26,6 +25,7 @@ tags:
     - [散布図](#散布図)
     - [動くグラフ](#動くグラフ)
     - [二軸のグラフ](#二軸のグラフ)
+  - [円グラフ](#円グラフ)
   - [既存の列を使って処理して、新しい列を作成する](#既存の列を使って処理して新しい列を作成する)
     - [同一行内の計算](#同一行内の計算)
     - [累積和 cumsum](#累積和-cumsum)
@@ -47,12 +47,14 @@ tags:
     - [列の並べ替え](#列の並べ替え)
     - [列の順序を反転](#列の順序を反転)
     - [index の指定](#index-の指定)
+    - [列番号で選択](#列番号で選択)
   - [型](#型)
     - [型を確認](#型を確認)
     - [型変更](#型変更)
   - [データ抽出](#データ抽出)
     - [条件を指定して抽出](#条件を指定して抽出)
     - [テーブル間の差分(diff)でデータを抽出](#テーブル間の差分diffでデータを抽出)
+  - [集約](#集約)
   - [行関係](#行関係)
     - [上下反転(逆順)](#上下反転逆順)
   - [セル](#セル)
@@ -288,6 +290,33 @@ ax2.set_yticks(np.linspace(ax2.get_yticks()[0], ax2.get_yticks()[-1], len(ax1.ge
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/274127/64988b65-362e-43b4-9020-f90b5475453e.png)
 
+## 円グラフ
+
+```pie.py
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def creat_pi(df_g):
+    plt.rcParams.update({'font.size':16})
+    fig = plt.figure(figsize=(8,8))
+
+    x = df_g.round(2).tolist()
+    legend = df_g.index.tolist()
+
+    title = "Sample Assy Components"
+
+    plt.pie(x=x,labels=legend,wedgeprops={'linewidth':1,'edgecolor':'black'},
+            autopct=lambda p:'{:.0f}%'.format(p) if p>=2 else '',pctdistance=.75, textprops={'fontsize': 15})
+    if legend != "":
+        plt.legend(legend,fontsize=16,bbox_to_anchor=(1,0.3))
+    if title != "":
+        plt.title(title,fontsize=20,y=-0.1)
+    plt.axis('equal')
+    plt.show()
+```
+
+![](./image/pandas_memo/円グラフ.png)
+
 ## 既存の列を使って処理して、新しい列を作成する
 
 ### 同一行内の計算
@@ -444,9 +473,14 @@ df.apply(pd.Series.interpolate)#nanを前後の線形の値で埋めたい場合
 
 ### 文字列の置換
 
+引数 regex=True とすると、正規表現を使うことができる。
+
 ```replace.py
 df = df.replace([' ', '  :  ',"nan","  :  :  "], [np.nan, np.nan, np.nan, np.nan])#特定の文字列をnanに変更
+df.replace('(.*)li(.*)', r'\1LI\2', regex=True) #正規表現を使用する
 ```
+
+※()で囲んだ部分をグループとして、置換後の値の中で\1, \2 のように順番に使用可能
 
 ### 重複の確認と処理
 
@@ -501,6 +535,12 @@ df[df.columns[::-1]]
 ```index.py
 df=df.set_index("時間")
 df.index=pd.DatetimeIndex(df.index)
+```
+
+### 列番号で選択
+
+```retsu_bango.py
+df.iloc[0:,1]
 ```
 
 ## 型
@@ -591,6 +631,15 @@ df_diff = pd.concat([df,df_edit])
 df_diff = df_diff.drop_duplicates(keep=False)
 # keep="last"でdf_edit側の値を残す
 df_diff.drop_duplicates(subset="id",keep="last")
+```
+
+## 集約
+
+groupby で集約する。文字列も結合することもできる
+
+```
+df_mat = df.groupby("name")["material"].apply(list) .apply(lambda x:sorted(x)) .apply(' , '.join)
+df_g = df.groupby("name" ).sum()
 ```
 
 ## 行関係
