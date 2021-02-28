@@ -1,9 +1,83 @@
 ---
 tags:
-  - base
+  - 02_設計ツール
 ---
 
-# blender2cad
+# blender と freecad を jupyter notebook から使える環境の構築
+
+blender,freecad 共に pythonAPI があります。各々ソフトの中にエディタがあり、そこでスクリプトを書いて実行できるのですが、ライブラリの追加や連携などが面倒くさいです。
+そこで、anaconda から blender と freecad を使える環境を作りました。
+
+## ソフトのインストール
+
+1. anaconda のインストール
+   仮想環境が使える場合は、最新で OK
+1. blender のインストール
+   最新で OK
+
+## 仮想環境を作成
+
+anaconda で仮想環境を作成します。python のバージョンは、blender の python のバージョンに合わせる必要があります。
+私の環境では blender のバージョンは、2.91.2 で、python のバージョンは 3.7.7 なので、anaconda の python のバージョンを 3.7 にしました。
+
+```
+conda create --name freecad37 python=3.7 anaconda
+```
+
+## Freecad 関係
+
+下記を実行すると、python3.7 の freecad を入れることができ、jupyter notebook に FreeCAD を import することができます
+
+```
+conda config --add channels conda-forge
+conda install freecad python=3.7.6
+```
+
+## blender python API 関連
+
+### jupyter から blender を使う
+
+blender の python のバージョンと合わせる必要あり(今回は python3.7 で合わせている)
+
+#### jupyter のカーネルに blender を追加する
+
+下記のコマンドを実行する。blender の実行パスは、[blender_notebook](https://pypi.org/project/blender-notebook/)の説明を読んで変更する。
+
+```
+pip install blender-notebook
+blender_notebook install --blender-exec="/Applications/Blender.app/Contents/MacOS/Blender"
+```
+
+実行すると、`Are you sure to create? [y/N]:`と聞かれるので、`y`と入力すると、`Saving files to /Users/username/Library/Jupyter/kernels/blender `と表示されて、カーネルが追加される
+
+#### 立ち上げ
+
+jupyter notebook を立ち上げると、カーネルに`blender`が追加されており、これを立ち上げると、blender が jupyter notebook から使えるようになる。(blender も同時に立ち上げるので、結果を見ながらスクリプトが書けます! 便利)
+
+#### テスト
+
+テストとして、おさるさんを配置してみます
+ちゃんとできました
+
+```
+import bpy
+bpy.ops.object.delete()
+bpy.ops.mesh.primitive_monkey_add(location = (-5, -5, 0), size = 3.0)
+```
+
+![](./image/blender2cad/blender2cad_test.png)
+
+### 補完できるようにする
+
+blender の python API は一部バイナリで提供されるため、一部補完が効かない。全部補完できるように下記を実行する。
+※バージョンは blender のバージョンに合わせる
+※バージョンがなければ、自分でも作れる
+
+```
+pip install fake-bpy-module-2.91
+```
+
+## blender ファイルを Freecad ファイルに変換
 
 ```
 # ##### BEGIN GPL LICENSE BLOCK #####

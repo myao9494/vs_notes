@@ -58,7 +58,7 @@ code . #currenr dir
 アプデすると、使えなくなる場合がある。そのときは、下記コマンドを実行すれば OK
 
 ```zsh
- xcode-select --install
+xcode-select --install
 ```
 
 ## zsh の注意！

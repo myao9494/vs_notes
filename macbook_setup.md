@@ -42,7 +42,7 @@ tags:
     - [MindNode](#mindnode)
     - [BackgroundMusic](#backgroundmusic)
   - [homebrew](#homebrew)
-    - [ｘ 64 インストール](#x-64-インストール)
+    - [ｘ 64 インストール](#ｘ-64-インストール)
     - [M1 版をインストール](#m1-版をインストール)
     - [zsh にパスを通す](#zsh-にパスを通す)
     - [使い方](#使い方)
@@ -100,6 +100,7 @@ tags:
 1. スクリーン
 1. ⌘⇧5 と ⌘⇧6  のチェックを外す（skitch のために）
 1. もとの ⌘⇧5 を ⌘⇧7 に割り当てる(動画キャプチャのため)
+1. 「キーボード」の「修飾キー」を開き、Caps Lock キーの割り当てを「Control」にする
 
 ## fineer の設定
 
@@ -272,6 +273,8 @@ arch -arch x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/H
 
 ### M1 版をインストール
 
+https://docs.brew.sh/Installation
+
 mkdir でパスワードを聞かれるので、ログインパスワードを入れる
 以下の場合は、usre にインストールする場合
 
@@ -279,6 +282,7 @@ mkdir でパスワードを聞かれるので、ログインパスワードを�
 cd opt
 mkdir homebrew
 curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+
 ```
 
 ### zsh にパスを通す
@@ -286,11 +290,12 @@ curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ho
 `/Users/user/.zshrc`を開いて、下記を追加する
 
 ```text
+setopt no_global_rcs   # ignore /etc/z*
 typeset -U path PATH
 path=(
-	/opt/homebrew/bin(N-/)
-	/usr/local/bin(N-/)
-	$path
+    /opt/homebrew/bin(N-/)
+    /usr/local/bin(N-/)
+    $path
 )
 
 if [[ "${(L)$( uname -s )}" == darwin ]] && (( $+commands[arch] )); then
