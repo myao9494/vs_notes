@@ -28,6 +28,7 @@ tags:
     - [git の初期設定](#git-の初期設定)
   - [VS code](#vs-code)
     - [設定](#設定)
+    - [terminal から起動できるようにする](#terminal-から起動できるようにする)
   - [anaconda](#anaconda)
     - [インストール](#インストール)
     - [アンインストール](#アンインストール)
@@ -42,7 +43,7 @@ tags:
     - [MindNode](#mindnode)
     - [BackgroundMusic](#backgroundmusic)
   - [homebrew](#homebrew)
-    - [ｘ 64 インストール](#ｘ-64-インストール)
+    - [ｘ 64 インストール](#x-64-インストール)
     - [M1 版をインストール](#m1-版をインストール)
     - [zsh にパスを通す](#zsh-にパスを通す)
     - [使い方](#使い方)
@@ -168,11 +169,6 @@ git config --global color.branch auto
 
 ## VS code
 
-m1 対応は insider しか無かったので、下記からインストール
-現状、特に問題なし
-
-https://code.visualstudio.com/insiders/#
-
 ### 設定
 
 自分のリポジトリを落としてきて設定する
@@ -181,6 +177,12 @@ https://code.visualstudio.com/insiders/#
    https://github.com/myao9494/VS_Code_setting_myao
 1. vsnotes
    https://github.com/myao9494/vs_notes
+
+### terminal から起動できるようにする
+
+1. コマンドパレットを開き、「shell command install」を入力
+1. 「シェルコマンド: PATH 内に ‘code’ コマンドをインストールします」と表示されるので選択
+1. 右下に「シェルコマンド ‘code’ が PATH に正常にインストールされました。」と表示されれば成功。
 
 ## anaconda
 
