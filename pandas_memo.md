@@ -26,13 +26,18 @@ tags:
     - [動くグラフ](#動くグラフ)
     - [二軸のグラフ](#二軸のグラフ)
   - [円グラフ](#円グラフ)
-  - [既存の列を使って処理して、新しい列を作成する](#既存の列を使って処理して新しい列を作成する)
+  - [既存の df に手を加える](#既存の-df-に手を加える)
     - [同一行内の計算](#同一行内の計算)
     - [累積和 cumsum](#累積和-cumsum)
-    - [差分 diff](#差分-diff)
+    - [同一列の増加率(差)をとる](#同一列の増加率差をとる)
     - [最大値 max](#最大値-max)
     - [1 行ずらした列を挿入](#1-行ずらした列を挿入)
     - [関数を使用する](#関数を使用する)
+      - [全要素に関数を適用 : applymap()](#全要素に関数を適用--applymap)
+      - [各行に関数を適用して、列の ds を作成する apply(xxx,axis=1) ※ axis = 0 で列に関数適用し、行の ds を作成](#各行に関数を適用して列の-ds-を作成する-applyxxxaxis1--axis--0-で列に関数適用し行の-ds-を作成)
+      - [列名を変数にして apply を実行する](#列名を変数にして-apply-を実行する)
+  - [データのアップデート](#データのアップデート)
+  - [データフレーム同士の差分を見る table の diff](#データフレーム同士の差分を見る-table-の-diff)
   - [前処理](#前処理)
     - [数値以外の文字列を含む場合の処理](#数値以外の文字列を含む場合の処理)
     - [欠損値 nan の扱い](#欠損値-nan-の扱い)
@@ -317,7 +322,7 @@ def creat_pi(df_g):
 
 ![](./image/pandas_memo/円グラフ.png)
 
-## 既存の列を使って処理して、新しい列を作成する
+## 既存の df に手を加える
 
 ### 同一行内の計算
 
@@ -352,7 +357,7 @@ df["累積和"] = df["対象列"].cumsum()
 |      4 |     10 |
 |      5 |     15 |
 
-### 差分 diff
+### 同一列の増加率(差)をとる
 
 イメージ：excel で微分。材料力学の梁の計算で、SFD から荷重を求める際など  
  オプションで範囲を指定することができる
@@ -404,6 +409,22 @@ df["yesterday_close_value"] = df['close'].shift()#最後の行は自動で削除
 
 イメージ：excel で各セルを使って関数を適用。
 
+#### 全要素に関数を適用 : applymap()
+
+df の全要素に対して関数が適用される
+下記例では、数字の奇数か偶数かを判定する。
+x が各セルの値
+
+```
+import pandas as pd
+import numpy as np
+df = pd.DataFrame([[11,12,13,14],[21,22,23,24],[31,32,33,34]],columns=["a","b","c","d"])
+f_oddeven = lambda x: 'odd' if x % 2 == 1 else 'even'
+df.applymap(f_oddeven)
+```
+
+#### 各行に関数を適用して、列の ds を作成する apply(xxx,axis=1) ※ axis = 0 で列に関数適用し、行の ds を作成
+
 ```apply.py
 df["関数"]= df.apply(lambda d: d['対象列1'] + d['対象列2'], axis=1)
 
@@ -421,6 +442,64 @@ df["関数"] = df.apply(func, axis=1)
 |        3 |        3 |    6 |
 |        4 |        4 |    8 |
 |        5 |        5 |   10 |
+
+#### 列名を変数にして apply を実行する
+
+処理対象の列を変数にしたい場合
+※応用として、変数を関数に渡したい場合に利用する
+
+```
+import pandas as pd
+import numpy as np
+df = pd.DataFrame([[11,12,13,14],[21,22,23,24],[31,32,33,34]],columns=["a","b","c","d"])
+
+def func(row,x,y):
+    out = row[x] + row[y]
+    return out
+
+x="a"
+y="d"
+df["out"] = df.apply(lambda row:func(row,x,y),axis=1)
+```
+
+## データのアップデート
+
+データフレームの中身をアップデートします。
+行列の数は合っていなくてもよいが、インデックスとカラムは存在していないといけない。
+
+```sample.py
+import pandas as pd
+import numpy as np
+df = pd.DataFrame([[1.5, np.nan, 3.],
+                [1.5, np.nan, 3.],
+                [1.5, np.nan, 3],
+                [1.5, np.nan, 3]])
+
+other = pd.DataFrame([[3.6, 2., np.nan],
+                   [np.nan, np.nan, 7]], index=[1, 3])
+
+df.update(other, overwrite=False) #nan以外は上書きしない
+df.update(other)#nanであろうがなかろうが上書きする
+
+expected = pd.DataFrame([[1.5, np.nan, 3],
+                      [1.5, 2, 3],
+                      [1.5, np.nan, 3],
+                      [1.5, np.nan, 3.]])
+
+pd.testing.assert_frame_equal(df, expected) #予想通りかどうかをテスト、expectedと異なるとエラーをはく
+```
+
+## データフレーム同士の差分を見る table の diff
+
+```
+import pandas as pd
+import numpy as np
+df = pd.DataFrame([[11,12,13,14],[21,22,23,24],[31,32,33,34]],columns=["a","b","c","d"])
+df_mod= pd.DataFrame([[11,12,444,14],[21,22,23,24],[31,32,45,34]],columns=["a","b","c","d"])
+df.compare(df_mod)
+df.compare(df_mod,align_axis=0)#行方向に表示
+df.compare(df_mod, keep_shape=True)#もとの行列を保持
+```
 
 ## 前処理
 
@@ -681,6 +760,10 @@ df = pd.read_csv(os.path.join(folder_path,csv_list[0]), index_col=0)#一番左�
 df = df.astype("float")
 df.index=pd.DatetimeIndex(df.index)
 ```
+
+より早く読み込みたい場合は、DASK を使用すればよいらしい
+
+https://note.com/225_dow/n/n39641a2e501b
 
 ### 時系列データ
 
