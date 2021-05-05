@@ -5,54 +5,21 @@ tags:
 
 # macbook_setup
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=2 orderedList=true} -->
 
 <!-- code_chunk_output -->
 
-- [macbook_setup](#macbook_setup)
-  - [システム環境設定](#システム環境設定)
-    - [コンピュータ名の変更](#コンピュータ名の変更)
-    - [ディスプレイの設定](#ディスプレイの設定)
-    - [トラックパッドの設定](#トラックパッドの設定)
-    - [Dock とメニューバーの設定](#dock-とメニューバーの設定)
-    - [ファイアウォールの設定](#ファイアウォールの設定)
-    - [キーボードの設定](#キーボードの設定)
-  - [fineer の設定](#fineer-の設定)
-  - [ネットワークドライブの設定](#ネットワークドライブの設定)
-    - [nas のドライブの設定](#nas-のドライブの設定)
-  - [日本語入力関係](#日本語入力関係)
-    - [google 日本語入力](#google-日本語入力)
-    - [辞書](#辞書)
-  - [git](#git)
-    - [install](#install)
-    - [git の初期設定](#git-の初期設定)
-  - [VS code](#vs-code)
-    - [設定](#設定)
-    - [terminal から起動できるようにする](#terminal-から起動できるようにする)
-  - [anaconda](#anaconda)
-    - [インストール](#インストール)
-    - [アンインストール](#アンインストール)
-  - [chrome](#chrome)
-    - [表示設定](#表示設定)
-  - [無料ソフト インストール](#無料ソフト-インストール)
-    - [CheatSheet](#cheatsheet)
-    - [Clipy](#clipy)
-    - [Alfred](#alfred)
-    - [AppCleaner](#appcleaner)
-    - [skitch](#skitch)
-    - [MindNode](#mindnode)
-    - [BackgroundMusic](#backgroundmusic)
-  - [homebrew](#homebrew)
-    - [ｘ 64 インストール](#ｘ-64-インストール)
-    - [M1 版をインストール](#m1-版をインストール)
-    - [zsh にパスを通す](#zsh-にパスを通す)
-    - [使い方](#使い方)
-    - [brew で入れたソフトの場所](#brew-で入れたソフトの場所)
-    - [brew でインストールしたもの](#brew-でインストールしたもの)
-  - [ssh](#ssh)
-    - [公開鍵の作成](#公開鍵の作成)
-    - [公開鍵をサーバ側へ登録（ex github)](#公開鍵をサーバ側へ登録ex-github)
-    - [config file の作成](#config-file-の作成)
+1. [システム環境設定](#システム環境設定)
+2. [Finder の設定](#finder-の設定)
+3. [ネットワークドライブの設定](#ネットワークドライブの設定)
+4. [日本語入力関係](#日本語入力関係)
+5. [git](#git)
+6. [VS code](#vs-code)
+7. [anaconda](#anaconda)
+8. [chrome](#chrome)
+9. [無料ソフト インストール](#無料ソフト-インストール)
+10. [homebrew](#homebrew)
+11. [ssh](#ssh)
 
 <!-- /code_chunk_output -->
 
@@ -103,7 +70,7 @@ tags:
 1. もとの ⌘⇧5 を ⌘⇧7 に割り当てる(動画キャプチャのため)
 1. 「キーボード」の「修飾キー」を開き、Caps Lock キーの割り当てを「Command」にする
 
-## fineer の設定
+## Finder の設定
 
 1. 何かフォルダを開く
 1. 画面左上の Finder をクリック

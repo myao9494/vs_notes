@@ -8,7 +8,7 @@ tags:
 
 調べることをまとめました。都度更新です
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=2 orderedList=false} -->
 
 <!-- code_chunk_output -->
 
