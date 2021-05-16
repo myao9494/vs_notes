@@ -10,7 +10,7 @@ tags:
 ### 環境を作る
 
 ```zsh
-conda create --name test python=3.8 anaconda
+conda create --name tre python=3.7 anaconda
 ```
 
 ### 環境を完全に削除する

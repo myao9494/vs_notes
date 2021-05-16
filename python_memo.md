@@ -4,15 +4,13 @@ tags:
   - python
 ---
 
-# python の忘備録
+# python
 
-調べることをまとめました。都度更新です
-
-<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=2 orderedList=false} -->
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=2 orderedList=false} -->
 
 <!-- code_chunk_output -->
 
-- [python の忘備録](#python-の忘備録)
+- [python](#python)
   - [python の作法](#python-の作法)
     - [アンダースコア"\_"の役割](#アンダースコア_の役割)
   - [判定](#判定)
@@ -42,6 +40,9 @@ tags:
   - [sqlite 関係](#sqlite-関係)
   - [ポイントを時計回りに並べ替える](#ポイントを時計回りに並べ替える)
   - [文字列](#文字列)
+    - [置換](#置換)
+      - [辞書を使って置換(ゆらぎ系はこれで対応)](#辞書を使って置換ゆらぎ系はこれで対応)
+      - [正規表現を使って置換(複雑な条件を設定して置換)](#正規表現を使って置換複雑な条件を設定して置換)
     - [正規表現を用いた置換（マッチした一部を再利用）](#正規表現を用いた置換マッチした一部を再利用)
     - [decode](#decode)
     - [数字の表示 for CAE (浮動小数点　 e または E で表示)](#数字の表示-for-cae-浮動小数点-e-または-e-で表示)
@@ -427,6 +428,16 @@ nextweek = now + datetime.timedelta(weeks = 1) #今より一週間後
 datetime.datetime.combine(datetime.date(2011, 1, 1), datetime.time(10, 23))
 ```
 
+- 合計時間
+
+timedelta の差の時間を秒で返します
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+```python
+(tg-nt).total_seconds()
+```
+
 ## sqlite 関係
 
 作成　テーブル作成　レコードを追加
@@ -458,6 +469,29 @@ pnt = sorted(pnt, key=_angle_between,reverse=True)#反時計回り
 ```
 
 ## 文字列
+
+### 置換
+
+https://www.headboost.jp/python-replace-strings/
+
+通常の replace では、複数条件を指定できないので、複数条件対応の方法を調べてみた。
+USE CASE としては、、と, など、人によって揺らぐモノをなんとかしたいとき
+
+#### 辞書を使って置換(ゆらぎ系はこれで対応)
+
+```python
+text = 'Pythonは,AI・科学技術計算・機械学習に適した言語です.++'
+''' translateメソッドは変換テーブルを作るstr.maketrans関数と一緒に使います。'''
+print(text.translate(str.maketrans({',' : '、', '・' : 'と', '.' : '。', '+' : None})))
+```
+
+#### 正規表現を使って置換(複雑な条件を設定して置換)
+
+```python
+import re
+text = '関東のおみず、関西のみず、東北のおミズ、九州のミズ'
+print(re.sub('おみず|みず|おミズ|ミズ', '水', text))
+```
 
 ### 正規表現を用いた置換（マッチした一部を再利用）
 

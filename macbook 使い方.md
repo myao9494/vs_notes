@@ -5,10 +5,40 @@ tags:
 
 # macbook 使い方
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=2 depthTo=2 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [macbook 使い方](#macbook-使い方)
+  - [キーの対応表](#キーの対応表)
+  - [finder](#finder)
+    - [ファイルを移動させる(win の ctrl + v)](#ファイルを移動させるwin-の-ctrl--v)
+    - [戻る、進む](#戻る進む)
+  - [キー](#キー)
+  - [ショートカット](#ショートカット)
+  - [terminal](#terminal)
+  - [git が使えなくなったとき](#git-が使えなくなったとき)
+  - [zsh の注意！](#zsh-の注意)
+
+<!-- /code_chunk_output -->
+
+## キーの対応表
+
 ⌘ = command
 ⌥ = option
 ⇧ = shifR
 ⌃ = control
+
+## finder
+
+### ファイルを移動させる(win の ctrl + v)
+
+⌘Command+⌥Option+V
+
+### 戻る、進む
+
+Command+[ で戻る
+Command+] で進む
 
 ## キー
 
