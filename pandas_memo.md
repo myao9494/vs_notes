@@ -416,6 +416,23 @@ y="d"
 df["out"] = df.apply(lambda row:func(row,x,y),axis=1)
 ```
 
+#### 実例 1 階層の見える化
+
+```level.py
+import pandas as pd
+df = pd.DataFrame([0,1,2,2,3,2,3,1],columns=["階層"])
+def func(row,x):
+    if row["階層"] == x:
+        out =  "x"
+    else:
+        out=""
+    return out
+
+for i in range(df["階層"].max()+1):
+    df[str(i)] = df.apply(lambda row:func(row,i),axis=1)
+df
+```
+
 ## データのアップデート
 
 データフレームの中身をアップデートします。
