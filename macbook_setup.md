@@ -223,6 +223,12 @@ appstore からインストール
 
 https://github.com/kyleneideck/BackgroundMusic
 
+### Scroll Reverser
+
+トラックパッドとマウスのスクロール方向を逆に
+
+https://pc-karuma.net/mac-app-scroll-reverser/
+
 ## homebrew
 
 mac のパッケージ管理ソフト、これの他に macport がある。
