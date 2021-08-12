@@ -692,12 +692,32 @@ df.dtypes # 型確認
 
 ### 型変更
 
+数値に変更
+
 ```type_1.py
 df=df.apply(pd.to_numeric, errors='ignore') #型変更（数字に変換）エラーは無視
 df['現在値'].apply(pd.to_numeric, errors='coerce') #型変更（数字に変換）エラーはnanとなる
-df['i'].astype(str) #数値を文字列に変換
 df['i'].astype(int)   #整数intに変換
 df['i'].astype(float) #浮動小数点floatに変換
+```
+
+時間に変更
+
+```type_2.py
+df['date'] = pd.to_datetime(df['日時'], format='%Y/%m/%d %H:%M:%S', errors='coerce')#エラーはNaT
+df['date'] = pd.to_datetime(df['日時'], format='%Y/%m/%d %H:%M:%S', errors='ignore')#エラーは無視
+```
+
+UNIX time から日時にする場合(フォーマットで文字列に変えている)
+
+```
+df['date'] = pd.to_datetime(df['日時'], unit='s', errors='coerce').dt.strftime('%Y/%m/%d')
+```
+
+文字列に変換
+
+```
+df['i'].astype(str) #数値を文字列に変換
 ```
 
 ## データ抽出
