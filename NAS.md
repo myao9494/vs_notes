@@ -56,4 +56,4 @@ https://www.ask-corp.jp/guide/synology-nas-start-guide-part1.html
 
 ## ssh
 
-ssh myao9494@192.168.0.111 -p 6123
+ssh username@ip_adress -p port_no
