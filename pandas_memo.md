@@ -20,7 +20,7 @@ tags:
 - [データのアップデート](#データのアップデート)
 - [データフレーム同士の差分を見る table の diff](#データフレーム同士の差分を見る-table-の-diff)
 - [前処理](#前処理)
-- [置換 replace](#置換-replace)
+- [置換](#置換)
 - [重複の確認と処理](#重複の確認と処理)
 - [行、列の並べ替え](#行-列の並べ替え)
 - [行関係](#行関係)
@@ -279,17 +279,6 @@ def creat_pi(df_g):
 ![](./image/pandas_memo/円グラフ.png)
 
 ## 既存の列を処理して新しい列を作成する
-
-### map 用の辞書を作成する
-
-| id    | date       | month |
-| ----- | ---------- | ----- |
-| a     | 1975/12/28 | 1975  |
-| a_b   | 1975/12/28 | 1975  |
-| a_b_c | -          | -     |
-
-`map_dict = dict(df[["month"]])`
-`{'month': id a 1975 a_b 1975 a_b_c - Name: month, dtype: object}`
 
 ### 既存列の文字列を split して別の列を作成する
 
@@ -617,7 +606,30 @@ df.replace([np.inf, -np.inf], np.nan)
 df.apply(pd.Series.interpolate)#nanを前後の線形の値で埋めたい場合 https://openbook4.me/projects/183/sections/777
 ```
 
-## 置換 replace
+## 置換
+
+### 辞書を使って置換 map
+
+map()の引数に辞書型 dict を指定すると置換できる
+※replace でもできるけど、map の方が高速
+
+| id    | date       | month |
+| ----- | ---------- | ----- |
+| a     | 1975/12/28 | 1975  |
+| a_b   | 1975/12/28 | 1975  |
+| a_b_c | -          | -     |
+
+`map_dict = dict(df["month"])`
+`{'a': '1975', 'a_b': '1975', 'a_b_c': '-'}`
+
+`df["test"]=df.index.map(map_dict)`
+| id | date | month | test |
+| ----- | ---------- | ----- | ---- |
+| a | 1975/12/28 | 1975 | 1975 |
+| a_b | 1975/12/28 | 1975 | 1975 |
+| a_b_c | - | - | - |
+
+### replace
 
 - 完全一致の場合
 
