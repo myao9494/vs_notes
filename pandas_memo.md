@@ -16,10 +16,12 @@ tags:
 - [サンプルの作成](#サンプルの作成)
 - [よく使うグラフ](#よく使うグラフ)
 - [円グラフ](#円グラフ)
-- [既存の df に手を加える](#既存の-df-に手を加える)
+- [既存の列を処理して新しい列を作成する](#既存の列を処理して新しい列を作成する)
 - [データのアップデート](#データのアップデート)
 - [データフレーム同士の差分を見る table の diff](#データフレーム同士の差分を見る-table-の-diff)
 - [前処理](#前処理)
+- [置換 replace](#置換-replace)
+- [重複の確認と処理](#重複の確認と処理)
 - [行、列の並べ替え](#行-列の並べ替え)
 - [行関係](#行関係)
 - [列 columns 関係](#列-columns-関係)
@@ -276,7 +278,31 @@ def creat_pi(df_g):
 
 ![](./image/pandas_memo/円グラフ.png)
 
-## 既存の df に手を加える
+## 既存の列を処理して新しい列を作成する
+
+### map 用の辞書を作成する
+
+| id    | date       | month |
+| ----- | ---------- | ----- |
+| a     | 1975/12/28 | 1975  |
+| a_b   | 1975/12/28 | 1975  |
+| a_b_c | -          | -     |
+
+`map_dict = dict(df[["month"]])`
+`{'month': id a 1975 a_b 1975 a_b_c - Name: month, dtype: object}`
+
+### 既存列の文字列を split して別の列を作成する
+
+```
+df["month"] = df["date"].str.split("/").str[0:1].str.join("")
+```
+
+| date       | month |
+| ---------- | ----- |
+| 1975/12/28 | 1975  |
+| 1975/12/28 | 1975  |
+| -          | -     |
+| -          | -     |
 
 ### 同一行内の計算
 
@@ -295,7 +321,9 @@ df["計算"] = df["対象列1"] + df["対象列2"]
 |        4 |        4 |    8 |
 |        5 |        5 |   10 |
 
-### 累積和 cumsum
+### 集約関数
+
+#### 累積和 cumsum
 
 イメージ：excel で積分。材料力学の梁の計算で、荷重から SFD を求める際など
 
@@ -311,7 +339,21 @@ df["累積和"] = df["対象列"].cumsum()
 |      4 |     10 |
 |      5 |     15 |
 
-### 同一列の増加率(差)をとる
+#### 累積積 cumprod
+
+```cumsum.py
+df["累積積"] = df["対象列"].cumprod()
+```
+
+| 対象列 | 累積積 |     |
+| ------ | ------ | --- |
+| 0      | 1      | 1   |
+| 1      | 2      | 2   |
+| 2      | 3      | 6   |
+| 3      | 4      | 24  |
+| 4      | 5      | 120 |
+
+#### 同一列の増加率(差)をとる
 
 イメージ：excel で微分。材料力学の梁の計算で、SFD から荷重を求める際など  
  オプションで範囲を指定することができる
@@ -328,7 +370,7 @@ df["差分"] = df["対象列"].diff()
 |      4 |    1 |
 |      5 |    1 |
 
-### 最大値 max
+#### 最大値 max
 
 ```max.py
 df["max"] = df.max(axis=1)
@@ -575,9 +617,18 @@ df.replace([np.inf, -np.inf], np.nan)
 df.apply(pd.Series.interpolate)#nanを前後の線形の値で埋めたい場合 https://openbook4.me/projects/183/sections/777
 ```
 
-### 文字列の置換
+## 置換 replace
 
-引数 regex=True とすると、正規表現を使うことができる。
+- 完全一致の場合
+
+`df["id"] = df["id"].replace("___","_")`
+
+- 部分一致の場合(文字列)
+
+`df["id"] = df["id"].str.replace("___","_")`
+
+- 正規表現
+  引数 regex=True で使える
 
 ```replace.py
 df = df.replace([' ', '  :  ',"nan","  :  :  "], [np.nan, np.nan, np.nan, np.nan])#特定の文字列をnanに変更
@@ -586,7 +637,7 @@ df.replace('(.*)li(.*)', r'\1LI\2', regex=True) #正規表現を使用する
 
 ※()で囲んだ部分をグループとして、置換後の値の中で\1, \2 のように順番に使用可能
 
-### 重複の確認と処理
+## 重複の確認と処理
 
 ```juhuku.py
 df.duplicated().any() #重複チェック
@@ -615,6 +666,14 @@ df.reindex(index=['Two', 'Three', 'One'])
 df.iloc[::-1]
 ```
 
+### 行を削除
+
+id を指定すればよい(下記は数字だけど、文字列で OK)
+
+```
+df.drop([3])
+```
+
 ## 列 columns 関係
 
 ### 列 volume の名前を Volume に変更　 inplace=True で上書き
@@ -638,7 +697,7 @@ df.drop(df.query('age < 25').index)
 ### 列の削除
 
 ```drop.py
-df=df.drop("high", axis=1)#列の削除
+df=df.drop(["high"], axis=1)#列の削除
 ```
 
 ### 列の並べ替え
@@ -708,10 +767,10 @@ df['date'] = pd.to_datetime(df['日時'], format='%Y/%m/%d %H:%M:%S', errors='co
 df['date'] = pd.to_datetime(df['日時'], format='%Y/%m/%d %H:%M:%S', errors='ignore')#エラーは無視
 ```
 
-UNIX time から日時にする場合(フォーマットで文字列に変えている)
+UNIX time から日時にする場合(フォーマットで文字列に変えて、repalce で nan を好きな文字に変更)
 
 ```
-df['date'] = pd.to_datetime(df['日時'], unit='s', errors='coerce').dt.strftime('%Y/%m/%d')
+df['date'] = pd.to_datetime(df['date'], unit='s', errors='coerce').dt.strftime('%Y/%m/%d').replace(np.nan,"-")
 ```
 
 文字列に変換
