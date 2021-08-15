@@ -134,6 +134,24 @@ git config --global color.status auto
 git config --global color.branch auto
 ```
 
+### ssh の設定
+
+2021.8.13 からパスワードで push できなくなった。トークンを使うか、SSH を使うかだが、私は SSH を使っている。
+
+以下のフォルダに、`id_rsa`をコピー
+`/Users/user/.ssh`
+※テキストだけをコピーした場合はパーミッションエラーになるので、.ssh のフォルダに移動して、下記コマンドを実行する
+`chmod 600 id_rsa`
+
+完了したら、下記コマンドでテストして OK なら完了
+`ssh -T git@github.com`
+
+各リポジトリの.git は、下記書き方のなっている必要あり。
+`url = git@github.com:ユーザ名/リポジトリ名.git`
+
+(詳細)
+https://github.com/myao9494/ssh_test
+
 ## VS code
 
 ### 設定
