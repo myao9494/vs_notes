@@ -16,6 +16,7 @@ tags:
     - [一行で書く](#一行で書く)
     - [長い行を 1 行で書く](#長い行を-1-行で書く)
   - [判定](#判定)
+    - [オブジェクトの有無の確認](#オブジェクトの有無の確認)
     - [bool 値の判定](#bool-値の判定)
     - [if 文](#if-文)
   - [リスト内包表記](#リスト内包表記)
@@ -79,6 +80,15 @@ df['date'] = pd.to_datetime(df['date'], unit='s', errors='coerce')\
 ```
 
 ## 判定
+
+### オブジェクトの有無の確認
+
+オブジェクトがない場合は作成する
+
+```hasattr
+if not hasattr(self,"df"):
+    self.create_db()
+```
 
 ### bool 値の判定
 
@@ -490,7 +500,7 @@ pnt = sorted(pnt, key=_angle_between,reverse=True)#反時計回り
 
 ### 置換
 
-https://www.headboost.jp/python-replace-strings/
+<https://www.headboost.jp/python-replace-strings/>
 
 通常の replace では、複数条件を指定できないので、複数条件対応の方法を調べてみた。
 USE CASE としては、、と, など、人によって揺らぐモノをなんとかしたいとき
@@ -513,7 +523,7 @@ print(re.sub('おみず|みず|おミズ|ミズ', '水', text))
 
 ### 正規表現を用いた置換（マッチした一部を再利用）
 
-https://www.aipacommander.com/entry/2014/06/17/184220
+<https://www.aipacommander.com/entry/2014/06/17/184220>
 
 `(.*)`の部分が再利用されます。対応は、`\\1`と`\\2`になる
 

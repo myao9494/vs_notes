@@ -293,6 +293,13 @@ df["month"] = df["date"].str.split("/").str[0:1].str.join("")
 | -          | -     |
 | -          | -     |
 
+
+```
+df = df["date"].str.split("/",expand=True)
+df.rename(columns={0:"年",1:"月",2:"日"})
+```
+
+
 ### 同一行内の計算
 
 dataseries にして計算すれば、エクセルと同じイメージで計算できる  
@@ -884,6 +891,13 @@ df.to_csv("test.csv", index=False)
 ```
 
 ## pandas 読み込み
+
+### xlwingsで開いたエクセルをdf化
+
+https://qiita.com/k_maki/items/7e86b8314422cb4588f7#excel%E3%81%AE%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BFxlwings
+```
+df = sh.used_range.options(pd.DataFrame, index=False).value
+```
 
 ### csv
 
