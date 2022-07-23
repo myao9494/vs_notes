@@ -28,6 +28,7 @@ tags:
 - [型](#型)
 - [データ抽出](#データ抽出)
 - [集約](#集約)
+- [dfの結合](#dfの結合)
 - [セル](#セル)
 - [書き込み](#書き込み)
 - [pandas 読み込み](#pandas-読み込み)
@@ -663,6 +664,8 @@ df.duplicated().any() #重複チェック
 df.duplicated(['x', 'y']).any() #部分的な重複チェック x と y 列の重複チェックは True
 df.drop_duplicates(['x', 'y']) # 重複データを削除　前のデータを残す
 df.drop_duplicates(['x', 'y'], keep='last') #重複データを削除　後のデータを残す
+df[~df.index.duplicated()]#indexのみで重複を削除
+
 ```
 
 ## 行、列の並べ替え
@@ -866,6 +869,12 @@ groupby で集約する。文字列も結合することもできる
 ```
 df_mat = df.groupby("name")["material"].apply(list) .apply(lambda x:sorted(x)) .apply(' , '.join)
 df_g = df.groupby("name" ).sum()
+```
+
+## dfの結合
+
+```
+df.append(df_add)
 ```
 
 ## セル
