@@ -15,12 +15,14 @@ tags:
     - [アンダースコア"\_"の役割](#アンダースコア_の役割)
     - [一行で書く](#一行で書く)
     - [長い行を 1 行で書く](#長い行を-1-行で書く)
+  - [[python] 文を実行するexec, eval](#python-文を実行するexec-eval)
   - [判定](#判定)
     - [オブジェクトの有無の確認](#オブジェクトの有無の確認)
     - [bool 値の判定](#bool-値の判定)
     - [if 文](#if-文)
   - [リスト内包表記](#リスト内包表記)
   - [辞書](#辞書)
+  - [集合 set](#集合-set)
   - [for 文](#for-文)
   - [file/folder 操作](#filefolder-操作)
   - [例外処理](#例外処理)
@@ -43,6 +45,8 @@ tags:
   - [sqlite 関係](#sqlite-関係)
   - [ポイントを時計回りに並べ替える](#ポイントを時計回りに並べ替える)
   - [文字列](#文字列)
+    - [抽出](#抽出)
+      - [で囲まれた文字列を抽出する](#で囲まれた文字列を抽出する)
     - [置換](#置換)
       - [辞書を使って置換(ゆらぎ系はこれで対応)](#辞書を使って置換ゆらぎ系はこれで対応)
       - [正規表現を使って置換(複雑な条件を設定して置換)](#正規表現を使って置換複雑な条件を設定して置換)
@@ -77,6 +81,17 @@ tags:
 df['date'] = pd.to_datetime(df['date'], unit='s', errors='coerce')\
 .dt.strftime('%Y/%m/%d').replace(np.nan,"-")
 
+```
+
+## [python] 文を実行するexec, eval
+
+DB操作で、困ったときに発見。pythonコードを作成して実行させることができる。自由度が増します
+
+<https://qiita.com/Kodaira_/items/30c84806b61792b613f2>
+
+```
+command = f"conn.execute(insert_stmt.on_duplicate_key_update({retu_mei}=insert_stmt.inserted.{retu_mei}))"
+exec(command)
 ```
 
 ## 判定
@@ -130,6 +145,18 @@ for key in dict_test:
 mydict = {"papa":"L", "O":"Orage", "G":"Grapes"}
 mydict.keys() #keyの表示
 list(mydict.items()) #リスト化
+```
+ 
+## 集合 set
+
+- 和集合（合併、ユニオン）: |演算子, union()
+- 積集合（共通部分、交差、インターセクション）: &演算子, intersection()
+- 差集合: -演算子, difference()
+
+```
+s_union = s1.union(s2)
+s_intersection = s1.intersection(s2)
+s_difference = s1.difference(s2)
 ```
 
 ## for 文
@@ -497,6 +524,16 @@ pnt = sorted(pnt, key=_angle_between,reverse=True)#反時計回り
 ```
 
 ## 文字列
+
+### 抽出
+
+#### [](括弧)で囲まれた文字列を抽出する
+
+```python
+search_result = re.findall(r'(?<=\[).+?(?=\])', tex)
+search_result[0]
+#'48,"部活",new Date(2022,6,21),2,222222'
+```
 
 ### 置換
 

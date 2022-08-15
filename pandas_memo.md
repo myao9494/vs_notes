@@ -555,6 +555,34 @@ df_m = insert_df_middle_row(idx,df,df_hen)
 
 ## データフレーム同士の差分を見る table の diff
 
+追加、削除、共通部分を出力する
+```
+import pandas as pd
+import numpy as np
+df = pd.DataFrame([[11,12,13,14],[21,22,23,24],[31,32,33,34]],columns=["a","b","c","d"])
+df_mod= pd.DataFrame([[11,12,444,14,22],[21,22,23,24,45],[31,32,45,34,234],[23,5555,4355,53,1234]],columns=["a","c","d","e","f"])
+df_mod.index = [0,1,3,5]
+
+set_intersection_index =set(df.index).intersection(set(df_mod.index))
+set_intersection_col = set(df.columns).intersection(set(df_mod.columns))
+
+df_c = df.loc[sorted(set_intersection_index, key=list(df.index).index),sorted(set_intersection_col, key=list(df.columns).index)]
+df_mod_c =df_mod.loc[sorted(set_intersection_index, key=list(df_mod.index).index),sorted(set_intersection_col, key=list(df_mod.columns).index)]
+df_comp = df_c.compare(df_mod_c)
+dic = {"self":"前","other":"後"}
+df_comp = df_comp.rename(columns=dic, level=-1)
+set_add_index =set(df_mod.index).difference(set(df.index))
+set_add_col = set(df_mod.columns).difference(set(df.columns))
+df_add_index = df_mod.loc[set_add_index]
+df_add_col = df_mod.loc[:,set_add_col]
+set_del_index =set(df.index).difference(set(df_mod.index))
+set_del_col = set(df.columns).difference(set(df_mod.columns))
+df_del_index = df.loc[set_del_index]
+df_del_col = df.loc[:,set_del_col]
+print("selfは変更前、　otherが変更後")
+```
+
+共有部分のみを出力
 ```
 import pandas as pd
 import numpy as np
@@ -613,6 +641,8 @@ df.replace([np.inf, -np.inf], np.nan)
 ```apply.py
 df.apply(pd.Series.interpolate)#nanを前後の線形の値で埋めたい場合 https://openbook4.me/projects/183/sections/777
 ```
+
+
 
 ## 置換
 
@@ -750,6 +780,14 @@ df.index=pd.DatetimeIndex(df.index)
 
 ```retsu_bango.py
 df.iloc[0:,1]
+```
+
+### multiindexでの列名変更
+マルチインデックスで列名を変更したい場合
+
+```
+dic = {"self":"前","other":"後"}
+df_comp = df_comp.rename(columns=dic, level=-1)
 ```
 
 ## 型
