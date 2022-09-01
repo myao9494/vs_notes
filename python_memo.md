@@ -96,13 +96,22 @@ exec(command)
 
 ## 判定
 
-### オブジェクトの有無の確認
+### オブジェクトの有無の確認(変数が定義されているかの確認、ローカルやクラス内など)
 
 オブジェクトがない場合は作成する
 
 ```hasattr
 if not hasattr(self,"df"):
     self.create_db()
+```
+
+同上
+
+cはクラス
+
+```
+if 'abc' in dir(c):
+    print(c.abc)
 ```
 
 ### bool 値の判定
