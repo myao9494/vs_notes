@@ -23,6 +23,7 @@ tags:
 - [置換](#置換)
 - [重複の確認と処理](#重複の確認と処理)
 - [行、列の並べ替え](#行-列の並べ替え)
+- [列に値を入れる](#列に値を入れる)
 - [行関係](#行関係)
 - [列 columns 関係](#列-columns-関係)
 - [型](#型)
@@ -704,7 +705,22 @@ df[~df.index.duplicated()]#indexのみで重複を削除
 df.reindex(index=['Two', 'Three', 'One'], columns=['B', 'C', 'A'])
 ```
 
+## 列に値を入れる
+
+```
+X列に"Y"を入れる
+df.isetitem(list(df.columns).index("X"),"Y")
+```
+
+
 ## 行関係
+
+### indexの置き換え(今のindexを残す)
+
+```
+X列をindexにする。indexを列として残す
+df.reset_index().set_index("X")
+```
 
 ### 並べ替え
 
@@ -841,7 +857,15 @@ df['i'].astype(str) #数値を文字列に変換
 
 ## データ抽出
 
+### 正規表現で抽出する
+
+```
+out["text"].str.extract('(\d{4})', expand=True)#4桁の数字を抽出してdfにする
+```
+
 ### 条件を指定して抽出
+
+
 
 ```data.py
 df[df['age'] < 25] #比較演算子で条件指定

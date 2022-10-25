@@ -20,6 +20,7 @@ tags:
 9. [無料ソフト インストール](#無料ソフト-インストール)
 10. [homebrew](#homebrew)
 11. [ssh](#ssh)
+12. [python](#python)
 
 <!-- /code_chunk_output -->
 
@@ -163,6 +164,13 @@ https://github.com/myao9494/ssh_test
 1. vsnotes
    https://github.com/myao9494/vs_notes
 
+1. ターミナルの設定
+   デフォルトの場合、ターミナルから python を実行すると、brew の方のなってしまうので、通常のターミナルと同じように実行するには下記の処理が必要
+
+terminal.integrated.inheritEnv で検索して、チェックを外す
+
+![](./image/macbook_setup/ターミナルの設定.png)
+
 ### terminal から起動できるようにする
 
 1. コマンドパレットを開き、「shell command install」を入力
@@ -246,6 +254,14 @@ https://github.com/kyleneideck/BackgroundMusic
 トラックパッドとマウスのスクロール方向を逆に
 
 https://pc-karuma.net/mac-app-scroll-reverser/
+
+### ShiftIt
+
+画面分割のソフト
+
+https://qiita.com/ysuzuki19/items/9e349d05e6df98d80c73
+
+![](./image/macbook_setup/shifit.png)
 
 ## homebrew
 
@@ -378,4 +394,24 @@ ssh -T git@github.com
 
 ```zsh
 Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+## python
+
+```
+#インストール
+pip install jupyter-contrib-nbextensions
+(pip install jupyter-nbextensions-configurator) #上記の時点であるっぽい？
+
+#有効化
+jupyter contrib nbextension install --user
+jupyter nbextensions_configurator enable --user
+```
+
+template_path → template_paths
+
+```
+miniforge3/lib/python3.9/site-packages/latex_envs/latex_envs.py
+miniforge3/lib/python3.9/site-packages/jupyter_contrib_nbextensions/nbconvert_support/exporter_inliner.py
+miniforge3/lib/python3.9/site-packages/jupyter_contrib_nbextensions/nbconvert_support/toc2.py
 ```

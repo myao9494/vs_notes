@@ -40,4 +40,5 @@ brew install cmake
 brew install swig
 brew install redis
 brew install fceux
+brew install tree
 ```

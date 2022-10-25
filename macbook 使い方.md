@@ -10,6 +10,7 @@ tags:
 <!-- code_chunk_output -->
 
 - [macbook 使い方](#macbook-使い方)
+  - [環境変数の設定](#環境変数の設定)
   - [キーの対応表](#キーの対応表)
   - [finder](#finder)
     - [ファイルを移動させる(win の ctrl + v)](#ファイルを移動させるwin-の-ctrl--v)
@@ -21,6 +22,11 @@ tags:
   - [zsh の注意！](#zsh-の注意)
 
 <!-- /code_chunk_output -->
+
+## 環境変数の設定
+
+直接編集
+`/Users/username/.zshrc`
 
 ## キーの対応表
 
